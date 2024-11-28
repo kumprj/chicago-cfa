@@ -15,11 +15,13 @@
     .rounded-btn {
       border-radius: 50px;
     }
+
     .logo {
       display: block;
       margin: 0 auto 20px;
       max-width: 150px;
     }
+
     .note {
       font-size: 0.7em;
       color: gray;
@@ -37,7 +39,8 @@
         <div class="card shadow-lg">
           <div class="card-body">
             <!-- Chicago Blackhawks Logo -->
-            <img src="https://upload.wikimedia.org/wikipedia/en/2/29/Chicago_Blackhawks_logo.svg" alt="Chicago Blackhawks Logo" class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/en/2/29/Chicago_Blackhawks_logo.svg"
+              alt="Chicago Blackhawks Logo" class="logo">
             <h3 class="text-center mb-4">Subscribe to Alerts for Blackhawks Free Chick-fil-a Breakfast</h3>
             <form id="dataForm">
               <div class="mb-3">
@@ -71,23 +74,24 @@
       // Replace with your backend API endpoint
       const apiEndpoint = "https://y8cz0ulez1.execute-api.us-east-1.amazonaws.com/add-data";
       // try { // removed await before fetch
-      const response = fetch(apiEndpoint, {
+      const response = await fetch(apiEndpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, phone }),
       });
 
-      // const result = await response.json(); //result.message ||
-      document.getElementById("message").innerText = "Phone number submitted successfully! Saved name " + name + " and phone number " + phone;
-      document.getElementById("message").classList.add("text-success");
-      // Clear the text boxes after successful submission
-      document.getElementById("name").value = "";
-      document.getElementById("phone").value = "";
-      // } catch (error) {
-      // console.error("Error:", error);
-      // document.getElementById("message").innerText = "Failed to submit data. " +  error;
-      // document.getElementById("message").classList.add("text-danger");
-      // }
+      const result = await response.json(); //result.message ||
+      try {
+        document.getElementById("message").innerText = "Phone number submitted successfully! Saved name " + name + " and phone number " + phone;
+        document.getElementById("message").classList.add("text-success");
+        // Clear the text boxes after successful submission
+        document.getElementById("name").value = "";
+        document.getElementById("phone").value = "";
+      } catch (error) {
+        console.error("Error:", error);
+        document.getElementById("message").innerText = "Failed to submit data. " + error;
+        document.getElementById("message").classList.add("text-danger");
+      }
     });
   </script>
 </body>
