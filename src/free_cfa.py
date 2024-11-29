@@ -6,8 +6,8 @@ import os
 import os
 from datetime import datetime, timedelta
 
-from src import get_name_and_number
-from src.send_text import send_text
+# from get_name_and_number import getNameAndNumber
+from send_text import send_text
 
 
 # Find your Account SID and Auth Token at twilio.com/console
