@@ -15,16 +15,14 @@ from send_text import send_text
 # and set the environment variables. See http://twil.io/secure
 
 
-
 def get_game_id():
     today = datetime.today() - timedelta(hours=8)
     year = today.strftime("%Y")
     month = today.strftime("%m")
     day = today.strftime("%d")
-    # day = "21" # Use sample blackhawks game with this
+    day = "21"  # Use sample blackhawks game with this
     todays_score_api = f"https://api-web.nhle.com/v1/score/{year}-{month}-{day}"
     response = requests.get(todays_score_api)
-
 
     # This CURL gets the game ID for today and saves it if Chi is in the list.
     game_id = ""
@@ -65,8 +63,15 @@ def game_summary_func(game_id):
 
     send_text(goal_result)
 
-def main():
+
+# Handler
+def lambda_handler(event, context):
     get_game_id()
 
-if __name__ == "__main__":
-    main()
+
+# def main():
+#     get_game_id()
+
+# For Local dev
+# if __name__ == "__main__":
+#     main()
