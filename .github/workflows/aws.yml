@@ -51,12 +51,3 @@ jobs:
     - name: Copy index file to S3 bucket
       run: |
         aws s3 cp frontend/index.html s3://${{ secrets.bucket_name }}/index.html
-  release:
-    name: Create Release
-    runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:
-    - uses: rymndhng/release-on-push-action@master
-      with:
-        bump_version_scheme: minor
