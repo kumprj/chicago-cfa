@@ -34,6 +34,7 @@ jobs:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
+    - run: cat src/requirements.txt | xargs -n 1 python3 -m pip install --target package/
     - run: cp src/free_cfa.py src/get_name_and_number.py src/send_text.py package
     - run: cd package/ && zip -r ../package.zip **
     - run: aws lambda update-function-code --function-name=blackhawks-cfa-texter --zip-file=fileb://package.zip
