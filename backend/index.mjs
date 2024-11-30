@@ -66,6 +66,7 @@ export const handler = async (event) => {
         },
       };
       await dynamoDb.send(new DeleteCommand(deleteParams));
+      deleteMessage(phone);
     } else {
       return {
         statusCode: 400,
@@ -107,3 +108,21 @@ async function createMessage(phone) {
   console.log("You're in for Blackhawks Chick-fil-a breakfast alerts! Reply HELP for help. Reply STOP to unsubscribe. Msg&Data Rates May Apply");
 
 }
+
+async function deleteMessage(phone) {
+
+  // const message = await client.messages.create({
+
+  //   body: "Your data has been successfully deleted from the database. Reply HELP for help. Reply STOP to unsubscribe. Msg&Data Rates May Apply",
+
+  //   from: "+15138668921",
+
+  //   to: "+1" + phone,
+
+  // });
+
+
+  console.log("Your data has been successfully deleted from the database. Reply HELP for help. Reply STOP to unsubscribe. Msg&Data Rates May Apply");
+
+}
+
