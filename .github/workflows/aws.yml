@@ -5,23 +5,6 @@ on:
   push:
     branches: [ main ]
 jobs:
-  # deploy-lambda:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: actions/checkout@master
-  #   - uses: actions/setup-python@v2
-  #     with:
-  #       python-version: '3.13' # Version range or exact version of a Python version to use, using SemVer's version range syntax
-  #   - run: cat src/requirements.txt | xargs -n 1 python3 -m pip install --target package/
-  #   - run: cp src/free_cfa.py src/get_name_and_number.py src/send_text.py package
-  #   - run: cd package/ && zip -r ../package.zip **
-  #   - uses: yvesgurcan/deploy-lambda-function@v0.0.5
-  #     with:
-  #       package: package.zip
-  #       function-name: blackhawks-cfa-texter
-  #       AWS_REGION: ${{ secrets.AWS_REGION }}
-  #       AWS_SECRET_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  #       AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   deploy-python-lambda:
     runs-on: ubuntu-latest
     steps:
