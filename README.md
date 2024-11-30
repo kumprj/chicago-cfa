@@ -1,5 +1,10 @@
 # blackhawks-cfa
-Text alerts if the Blackhawks got us free chick fil a
+Text alerts if the Blackhawks got us free chick fil a. 
+
+GitHub Actions configured to deploy:
+* Python Lambda which runs the check against NHL API and checks if the Hawks are at home.
+* Backend API Gateway lambda which loads the user's data to DynamoDB.
+* Front end hosted in S3.
 
 
 TODO Item in:
