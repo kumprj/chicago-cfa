@@ -49,6 +49,7 @@ export const handler = async (event) => {
         Item: { Name: name, SK: "GRP1#" + phone, Phone: phone },
       };
       await dynamoDb.send(new PutCommand(params));
+      createMessage();
     } else if (action === "Delete My Number") {
       const deleteParams = {
         TableName: TABLE_NAME,
@@ -82,3 +83,20 @@ export const handler = async (event) => {
     };
   }
 };
+
+async function createMessage() {
+
+  // const message = await client.messages.create({
+
+  //   body: "This is the ship that made the Kessel Run in fourteen parsecs?",
+
+  //   from: "+15017122661",
+
+  //   to: "+15558675310",
+
+  // });
+
+
+  console.log("You're in!");
+
+}
