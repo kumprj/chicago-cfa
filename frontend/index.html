@@ -90,7 +90,7 @@
     </div>
   </div>
 
-  <!-- PutCommand JavaScript -->
+  <!-- PutCommand JavaScript Code -->
   <script>
     document.getElementById("dataForm").addEventListener("submit", async function (e) {
       e.preventDefault();
@@ -100,7 +100,6 @@
       const action = e.submitter.innerText; // Grab the button's text value
       const spinner = document.getElementById("loading-spinner");
       spinner.classList.remove("d-none");
-      // Replace with your backend API endpoint
       const apiEndpoint = "https://y8cz0ulez1.execute-api.us-east-1.amazonaws.com/add-data";
       try {
         // try { // removed await before fetch
@@ -121,7 +120,7 @@
         document.getElementById("message").innerText = "Failed to submit data. " + error;
         document.getElementById("message").classList.add("text-danger");
       } finally {
-        // Hide the spinner after completion
+        // Hide the spinner after completion.
         spinner.classList.add("d-none");
       }
     });
