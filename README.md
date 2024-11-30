@@ -19,6 +19,8 @@ Python src code. This handles the NHL API requests and text message sends. `get_
 * Front end hosted in S3 - this is a simple aws s3 cp of the file.
 
 TODO Items:
-* Review python code - Schedule the lambda
+* Review python code - 
+  - Schedule the lambda
+  - Add Env vars for Twilio in both places.
 * Configure CloudFront distribution so that URL looks nicer -> look up how to do this properly
 * Verify Twilio status and campaign so texts can send

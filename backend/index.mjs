@@ -1,5 +1,12 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, PutCommand, DeleteCommand } from "@aws-sdk/lib-dynamodb";
+// Download the helper library from https://www.twilio.com/docs/node/install
+// const twilio = require("twilio"); // Or, for ESM: import twilio from "twilio";
+// Find your Account SID and Auth Token at twilio.com/console
+// and set the environment variables. See http://twil.io/secure
+// const accountSid = process.env.TWILIO_ACCOUNT_SID;
+// const authToken = process.env.TWILIO_AUTH_TOKEN;
+// const client = twilio(accountSid, authToken);
 
 // DynamoDB Configuration
 const REGION = "us-east-1"; // Replace with your region
@@ -49,7 +56,7 @@ export const handler = async (event) => {
         Item: { Name: name, SK: "GRP1#" + phone, Phone: phone },
       };
       await dynamoDb.send(new PutCommand(params));
-      createMessage();
+      createMessage(phone);
     } else if (action === "Delete My Number") {
       const deleteParams = {
         TableName: TABLE_NAME,
@@ -84,19 +91,19 @@ export const handler = async (event) => {
   }
 };
 
-async function createMessage() {
+async function createMessage(phone) {
 
   // const message = await client.messages.create({
 
-  //   body: "This is the ship that made the Kessel Run in fourteen parsecs?",
+  //   body: "You're in for Blackhawks Chick-fil-a breakfast alerts! Reply HELP for help. Reply STOP to unsubscribe. Msg&Data Rates May Apply",
 
-  //   from: "+15017122661",
+  //   from: "+15138668921",
 
-  //   to: "+15558675310",
+  //   to: "+1" + phone,
 
   // });
 
 
-  console.log("You're in!");
+  console.log("You're in for Blackhawks Chick-fil-a breakfast alerts! Reply HELP for help. Reply STOP to unsubscribe. Msg&Data Rates May Apply");
 
 }
