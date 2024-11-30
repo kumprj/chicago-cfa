@@ -59,10 +59,14 @@
                 <button id="success-button" type="submit" class="btn btn-success rounded-btn me-2">Add My
                   Number</button>
               </div>
+              <div id="loading-spinner" class="text-center my-3 d-none">
+                <div class="spinner-border text-primary" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </div>
             </form>
             <div id="message" class="mt-3 text-center"></div>
           </div>
-          <!-- <p class="note">Want to delete your data? Click this button instead:</p> -->
           <div id="message" class="mt-3 text-center"></div>
           <!-- Contact Me Button -->
           <div class="row justify-content-center mt-3">
@@ -85,18 +89,19 @@
       const name = document.getElementById("name").value;
       const phone = document.getElementById("phone").value;
       const action = e.submitter.innerText; // Grab the button's text value
-
+      const spinner = document.getElementById("loading-spinner");
+      spinner.classList.remove("d-none");
       // Replace with your backend API endpoint
       const apiEndpoint = "https://y8cz0ulez1.execute-api.us-east-1.amazonaws.com/add-data";
-      // try { // removed await before fetch
-      const response = await fetch(apiEndpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, action }),
-      });
-
-      const result = await response.json(); //result.message ||
       try {
+        // try { // removed await before fetch
+        const response = await fetch(apiEndpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, phone, action }),
+        });
+
+        const result = await response.json(); //result.message ||
         document.getElementById("message").innerText = result.message + " for " + name + " and phone number " + phone;
         document.getElementById("message").classList.add("text-success");
         // Clear the text boxes after successful submission
@@ -106,42 +111,13 @@
         console.error("Error:", error);
         document.getElementById("message").innerText = "Failed to submit data. " + error;
         document.getElementById("message").classList.add("text-danger");
+      } finally {
+        // Hide the spinner after completion
+        spinner.classList.add("d-none");
       }
     });
   </script>
 
-  <!-- DeleteCommand JavaScript -->
-  <script>
-    document.getElementById("dataForm").addEventListener("delete-submit", async function (e) {
-      e.preventDefault();
-
-      const name = document.getElementById("name").value;
-      const phone = document.getElementById("phone").value;
-      const addButton = false;
-
-      // Replace with your backend API endpoint
-      const apiEndpoint = "https://y8cz0ulez1.execute-api.us-east-1.amazonaws.com/add-data";
-      // try { // removed await before fetch
-      const response = await fetch(apiEndpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, addButton }),
-      });
-
-      const result = await response.json(); //result.message ||
-      try {
-        document.getElementById("message").innerText = "Information deleted: " + name + " and phone number " + phone;
-        document.getElementById("message").classList.add("text-success");
-        // Clear the text boxes after successful submission
-        document.getElementById("name").value = "";
-        document.getElementById("phone").value = "";
-      } catch (error) {
-        console.error("Error:", error);
-        document.getElementById("message").innerText = "Failed to submit data. " + error;
-        document.getElementById("message").classList.add("text-danger");
-      }
-    });
-  </script>
   <style>
     [data-custom-class='body'],
     [data-custom-class='body'] * {
