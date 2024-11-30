@@ -1,5 +1,5 @@
 # blackhawks-cfa
-Text alerts if the Blackhawks got us free chick fil a. 
+Text alerts if the Blackhawks got us free chick fil a by scoring in the first period of a home game. App hosted on AWS with API Gateway, Lambda, and DynamoDB.
 
 
 
