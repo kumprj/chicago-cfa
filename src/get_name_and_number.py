@@ -1,5 +1,4 @@
 import boto3
-import json
 import os
 # account_sid = os.environ["AWS_ACCESS_KEY_ID"]
 # auth_token = os.environ["AWS_SECRET_ACCESS_KEY"]

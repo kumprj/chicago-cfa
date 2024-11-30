@@ -47,9 +47,8 @@ def game_summary_func(game_id):
     response = requests.get(game_summary)
     goal_result = False
     if response.status_code == 200:
-        # Parse the JSON response
+        
         data = response.json()
-        # print(data['summary']['scoring'][0])
         first_period = data["summary"]["scoring"][0]["goals"]
         for goal in first_period:
             print(goal)
