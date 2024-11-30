@@ -4,10 +4,10 @@ Text alerts if the Blackhawks got us free chick fil a by scoring in the first pe
 
 
 # Frontend
-The frontend folder contains a single page HTML with some small javascript code to send the data entered to API Gateway.
+The frontend folder contains a single page HTML with some small javascript code to send the data entered to API Gateway. It is hosted on S3 as a static webpage.
 
 # Backend
-The backend is a NodeJS Lambda that handles the API Gateway request. It receives a JSON Object ('body') which is then parsed to determine if we have a DDB insert or delete.
+The backend is triggered when a user submits to add or delete data. It is a NodeJS Lambda that handles the API Gateway request. It receives a JSON Object ('body') which is then parsed to determine if we have a DDB insert or delete and then processes it accordingly.
 
 # src
 Python src code. This handles the NHL API requests and text message sends. `get_name_and_number` fetches the names and phone numbers to text message. `send_text` iterates through this list and sends it out. `free_cfa `is what queries the NHL api and determines if we need to send the text at all based on the NHL information.
