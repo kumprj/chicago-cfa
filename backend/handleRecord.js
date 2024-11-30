@@ -43,27 +43,13 @@ export const handler = async (event) => {
       };
     }
 
-    // // Construct the PutCommand parameters
-    // const params = {
-    //   TableName: TABLE_NAME,
-    //   Item: { Name: name, SK: "GRP1#" + phone, Phone: phone },
-    // };
-
-    // // Perform the Put or Delete operation
-    // if (action === "Add My Number") {
-    //   await dynamoDb.send(new PutCommand(params));
-    // } else {
-    //   await dynamoDb.send(new DeleteCommand(params));
-    // }
     if (action === "Add My Number") {
-      console.log("got here add");
       const params = {
         TableName: TABLE_NAME,
         Item: { Name: name, SK: "GRP1#" + phone, Phone: phone },
       };
       await dynamoDb.send(new PutCommand(params));
     } else if (action === "Delete My Number") {
-      console.log("got here delete");
       const deleteParams = {
         TableName: TABLE_NAME,
         Key: {
