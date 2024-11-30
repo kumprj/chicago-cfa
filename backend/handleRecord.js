@@ -1,5 +1,5 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
+import { DynamoDBDocumentClient, PutCommand, DeleteCommand } from "@aws-sdk/lib-dynamodb";
 
 // DynamoDB Configuration
 const REGION = "us-east-1"; // Replace with your region
@@ -33,8 +33,8 @@ export const handler = async (event) => {
       };
     }
 
-    const { name, phone } = body;
-
+    const { name, phone, action } = body;
+    console.log("action is " + action);
     // Validate input fields
     if (!name || !phone) {
       return {
@@ -43,14 +43,41 @@ export const handler = async (event) => {
       };
     }
 
-    // Construct the PutCommand parameters
-    const params = {
-      TableName: TABLE_NAME,
-      Item: { Name: name, SK: "GRP1#" + phone, Phone: phone },
-    };
+    // // Construct the PutCommand parameters
+    // const params = {
+    //   TableName: TABLE_NAME,
+    //   Item: { Name: name, SK: "GRP1#" + phone, Phone: phone },
+    // };
 
-    // Perform the Put operation
-    await dynamoDb.send(new PutCommand(params));
+    // // Perform the Put or Delete operation
+    // if (action === "Add My Number") {
+    //   await dynamoDb.send(new PutCommand(params));
+    // } else {
+    //   await dynamoDb.send(new DeleteCommand(params));
+    // }
+    if (action === "Add My Number") {
+      console.log("got here add");
+      const params = {
+        TableName: TABLE_NAME,
+        Item: { Name: name, SK: "GRP1#" + phone, Phone: phone },
+      };
+      await dynamoDb.send(new PutCommand(params));
+    } else if (action === "Delete My Number") {
+      console.log("got here delete");
+      const deleteParams = {
+        TableName: TABLE_NAME,
+        Key: {
+          Name: name,
+          SK: "GRP1#" + phone,
+        },
+      };
+      await dynamoDb.send(new DeleteCommand(deleteParams));
+    } else {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ message: "Invalid action specified" }),
+      };
+    }
 
     return {
       statusCode: 200,
@@ -58,7 +85,7 @@ export const handler = async (event) => {
         "Access-Control-Allow-Origin": "*", // Required for CORS support to work
         "Access-Control-Allow-Credentials": true // Required for cookies, authorization headers with HTTPS
       },
-      body: JSON.stringify({ message: "Data inserted successfully" }),
+      body: JSON.stringify({ message: `${action} successful` }),
     };
   } catch (error) {
     console.error("Error inserting data:", error);
