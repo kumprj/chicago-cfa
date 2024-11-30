@@ -7,7 +7,7 @@ GitHub Actions configured to deploy:
 * Front end hosted in S3.
 
 
-TODO Item in:
+TODO Items:
 * Review python code - 
 *   Test whether it is successfully querying DynamoDB with scan (feel good about the loop, just need to query)
 *   Test as a lambda
