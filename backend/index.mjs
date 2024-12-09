@@ -103,7 +103,8 @@ async function createMessage(phone) {
 
     to: "+1" + phone,
 
-  });
+  })
+    .then(message => console.log('Message sent: ', message.status));
 
 
   // console.log("You're in for Blackhawks Chick-fil-a breakfast alerts! Reply HELP for help. Reply STOP to unsubscribe. Msg&Data Rates May Apply");
@@ -120,7 +121,7 @@ async function deleteMessage(phone) {
 
     to: "+1" + phone,
 
-  });
+  }).then(message => console.log('Message sent: ', message.status));
 
 
   // console.log("Your data has been successfully deleted from the database. Reply HELP for help. Reply STOP to unsubscribe. Msg&Data Rates May Apply");
