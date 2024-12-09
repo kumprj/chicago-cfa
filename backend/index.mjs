@@ -57,7 +57,7 @@ export const handler = async (event) => {
         Item: { Name: name, SK: "GRP1#" + phone, Phone: phone, Blackhawks: "true" },
       };
       await dynamoDb.send(new PutCommand(params));
-      await createMessage(phone);
+      await createMessage(phone, name);
     } else if (action === "Delete My Number") {
       const deleteParams = {
         TableName: TABLE_NAME,
@@ -93,11 +93,11 @@ export const handler = async (event) => {
   }
 };
 
-async function createMessage(phone) {
+async function createMessage(phone, personsName) {
   try {
     console.log("Attempting to send message to phone:", phone);
     const message = await client.messages.create({
-      body: "You're in for Blackhawks Chick-fil-a breakfast alerts! Change your mind? Reply STOP to unsubscribe. Msg&Data Rates May Apply",
+      body: "You're in for Blackhawks Chick-fil-a breakfast alerts " + personsName + "! Change your mind? Reply STOP to unsubscribe. Msg&Data Rates May Apply",
       from: "+15138668921",
       to: "+1" + phone,
     });
