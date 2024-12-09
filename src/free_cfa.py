@@ -1,9 +1,6 @@
 from datetime import datetime
 import requests
-import json
 import datetime
-import os
-import os
 from datetime import datetime, timedelta
 
 # from get_name_and_number import getNameAndNumber
@@ -38,6 +35,7 @@ def get_game_id():
                 print(item["id"])
                 game_id = item["id"]
                 game_summary_func(game_id)
+
     else:
         print("Error: ", response.status_code)
 
