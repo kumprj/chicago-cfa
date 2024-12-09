@@ -92,7 +92,11 @@ export const handler = async (event) => {
     };
   }
 };
-
+/**
+ * Message to send when someone subscribes.
+ * @param {*} phone 
+ * @param {*} personsName 
+ */
 async function createMessage(phone, personsName) {
   try {
     console.log("Attempting to send message to phone:", phone);
@@ -107,6 +111,10 @@ async function createMessage(phone, personsName) {
   }
 }
 
+/**
+ * Message to send when someone delete's their data.
+ * @param {*} phone 
+ */
 async function deleteMessage(phone) {
   try {
     const message = await client.messages.create({
