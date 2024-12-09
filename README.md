@@ -17,10 +17,4 @@ Python src code. This handles the NHL API requests and text message sends. `get_
 * Python Lambda which runs the check against NHL API and checks if the Hawks are at home. This is managed with Terraform.
 * Backend API Gateway lambda which loads the user's data to DynamoDB. The lambda is managed by GitHub actions but the API Gateway was manually configured.
 * Front end hosted in S3 - this is a simple aws s3 cp of the file.
-
-TODO Items:
-* Review python code - 
-  - Schedule the lambda
-  - Add Env vars for Twilio in both places.
-* Configure CloudFront distribution so that URL looks nicer -> look up how to do this properly
-* Verify Twilio status and campaign so texts can send
+  
