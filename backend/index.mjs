@@ -94,37 +94,24 @@ export const handler = async (event) => {
 };
 
 async function createMessage(phone) {
-  console.log("got here create");
-  console.log("+1" + phone);
   try {
+    console.log("Attempting to send message to phone:", phone);
     const message = await client.messages.create({
-
-      body: "You're in for Blackhawks Chick-fil-a breakfast alerts! Reply STOP to unsubscribe. Msg&Data Rates May Apply",
-
+      body: "You're in for Blackhawks Chick-fil-a breakfast alerts! Change your mind? Reply STOP to unsubscribe. Delete data permanently from the webpage freethingsfromyteam.com. Msg&Data Rates May Apply",
       from: "+15138668921",
-
       to: "+1" + phone,
-
     });
     console.log('Message sent successfully:', message.status);
   } catch (error) {
     console.error('Failed to send message:', error);
   }
-
-  // console.log("You're in for Blackhawks Chick-fil-a breakfast alerts! Reply HELP for help. Reply STOP to unsubscribe. Msg&Data Rates May Apply");
-
 }
 
 async function deleteMessage(phone) {
-  console.log("got here delete");
-  console.log("+1" + phone);
   try {
     const message = await client.messages.create({
-
-      body: "Your data has been successfully deleted from the database. Reply HELP for help. Reply STOP to unsubscribe. Msg&Data Rates May Apply",
-
+      body: "Your data has been removed from BlackhawksCfa Alerts. Reply HELP for help. Reply STOP to unsubscribe. Msg&Data Rates May Apply",
       from: "+15138668921",
-
       to: "+1" + phone,
 
     });
@@ -132,8 +119,5 @@ async function deleteMessage(phone) {
   } catch (error) {
     console.error('Failed to send message:', error);
   }
-
-  // console.log("Your data has been successfully deleted from the database. Reply HELP for help. Reply STOP to unsubscribe. Msg&Data Rates May Apply");
-
 }
 
