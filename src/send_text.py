@@ -4,11 +4,13 @@ import os
 
 account_sid = os.environ["TWILIO_ACCOUNT_SID"]
 auth_token = os.environ["TWILIO_AUTH_TOKEN"]
+outgoing_number = os.environ["SENDER_NUMBER"]
 client = Client(account_sid, auth_token)
 
 
 def send_text(goal_result):
-    sender_number = '+15138668921'
+    sender_number = outgoing_number
+    goal_result = True
     if goal_result == True:
         nameList = []
         nameList = getNameAndNumber()
@@ -36,10 +38,10 @@ def polish_number(number):
 
     return new_number
 
-
+# For Local dev
 def main():
-    send_text()
+    send_text(True)
 
-
+# For Local dev
 if __name__ == "__main__":
     main()

@@ -2,14 +2,7 @@ from datetime import datetime
 import requests
 import datetime
 from datetime import datetime, timedelta
-
-# from get_name_and_number import getNameAndNumber
 from send_text import send_text
-
-
-# Find your Account SID and Auth Token at twilio.com/console
-
-# and set the environment variables. See http://twil.io/secure
 
 
 def get_game_id():
@@ -25,12 +18,9 @@ def get_game_id():
     # This CURL gets the game ID for today and saves it if Chi is in the list.
     game_id = ""
     if response.status_code == 200:
-        # Parse the JSON response
         data = response.json()
-        # print(data)
-        # Now you can work with the JSON data
         for item in data["games"]:
-            # print(item)
+            # print(item) # For testing purposes as needed.
             if item["venue"]["default"] == "United Center":
                 print(item["id"])
                 game_id = item["id"]
@@ -67,9 +57,10 @@ def lambda_handler(event, context):
     get_game_id()
 
 
+# # For Local dev
 # def main():
 #     get_game_id()
 
-# For Local dev
+# # For Local dev
 # if __name__ == "__main__":
 #     main()

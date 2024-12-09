@@ -13,8 +13,9 @@ def getNameAndNumber():
     print(nameList)
     return nameList
 
+# For Local dev
 def main():
     getNameAndNumber()
-
+# For Local dev
 if __name__ == "__main__":
     main()
