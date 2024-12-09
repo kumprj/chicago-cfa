@@ -94,35 +94,35 @@ export const handler = async (event) => {
 
 async function createMessage(phone) {
 
-  // const message = await client.messages.create({
+  const message = await client.messages.create({
 
-  //   body: "You're in for Blackhawks Chick-fil-a breakfast alerts! Reply HELP for help. Reply STOP to unsubscribe. Msg&Data Rates May Apply",
+    body: "You're in for Blackhawks Chick-fil-a breakfast alerts! Reply STOP to unsubscribe. Msg&Data Rates May Apply",
 
-  //   from: "+15138668921",
+    from: "+15138668921",
 
-  //   to: "+1" + phone,
+    to: "+1" + phone,
 
-  // });
+  });
 
 
-  console.log("You're in for Blackhawks Chick-fil-a breakfast alerts! Reply HELP for help. Reply STOP to unsubscribe. Msg&Data Rates May Apply");
+  // console.log("You're in for Blackhawks Chick-fil-a breakfast alerts! Reply HELP for help. Reply STOP to unsubscribe. Msg&Data Rates May Apply");
 
 }
 
 async function deleteMessage(phone) {
 
-  // const message = await client.messages.create({
+  const message = await client.messages.create({
 
-  //   body: "Your data has been successfully deleted from the database. Reply HELP for help. Reply STOP to unsubscribe. Msg&Data Rates May Apply",
+    body: "Your data has been successfully deleted from the database. Reply HELP for help. Reply STOP to unsubscribe. Msg&Data Rates May Apply",
 
-  //   from: "+15138668921",
+    from: "+15138668921",
 
-  //   to: "+1" + phone,
+    to: "+1" + phone,
 
-  // });
+  });
 
 
-  console.log("Your data has been successfully deleted from the database. Reply HELP for help. Reply STOP to unsubscribe. Msg&Data Rates May Apply");
+  // console.log("Your data has been successfully deleted from the database. Reply HELP for help. Reply STOP to unsubscribe. Msg&Data Rates May Apply");
 
 }
 
