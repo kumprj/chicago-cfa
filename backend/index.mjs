@@ -95,17 +95,21 @@ export const handler = async (event) => {
 
 async function createMessage(phone) {
   console.log("got here create");
-  const message = client.messages.create({
+  console.log("+1" + phone);
+  try {
+    const message = await client.messages.create({
 
-    body: "You're in for Blackhawks Chick-fil-a breakfast alerts! Reply STOP to unsubscribe. Msg&Data Rates May Apply",
+      body: "You're in for Blackhawks Chick-fil-a breakfast alerts! Reply STOP to unsubscribe. Msg&Data Rates May Apply",
 
-    from: "+15138668921",
+      from: "+15138668921",
 
-    to: "+1" + phone,
+      to: "+1" + phone,
 
-  })
-    .then(message => console.log('Message sent: ', message.status));
-
+    });
+    console.log('Message sent successfully:', message.status);
+  } catch (error) {
+    console.error('Failed to send message:', error);
+  }
 
   // console.log("You're in for Blackhawks Chick-fil-a breakfast alerts! Reply HELP for help. Reply STOP to unsubscribe. Msg&Data Rates May Apply");
 
@@ -113,16 +117,21 @@ async function createMessage(phone) {
 
 async function deleteMessage(phone) {
   console.log("got here delete");
-  const message = client.messages.create({
+  console.log("+1" + phone);
+  try {
+    const message = await client.messages.create({
 
-    body: "Your data has been successfully deleted from the database. Reply HELP for help. Reply STOP to unsubscribe. Msg&Data Rates May Apply",
+      body: "Your data has been successfully deleted from the database. Reply HELP for help. Reply STOP to unsubscribe. Msg&Data Rates May Apply",
 
-    from: "+15138668921",
+      from: "+15138668921",
 
-    to: "+1" + phone,
+      to: "+1" + phone,
 
-  }).then(message => console.log('Message sent: ', message.status));
-
+    });
+    console.log('Message sent successfully:', message.status);
+  } catch (error) {
+    console.error('Failed to send message:', error);
+  }
 
   // console.log("Your data has been successfully deleted from the database. Reply HELP for help. Reply STOP to unsubscribe. Msg&Data Rates May Apply");
 
