@@ -57,7 +57,7 @@ export const handler = async (event) => {
         Item: { Name: name, SK: "GRP1#" + phone, Phone: phone, Blackhawks: "true" },
       };
       await dynamoDb.send(new PutCommand(params));
-      createMessage(phone);
+      await createMessage(phone);
     } else if (action === "Delete My Number") {
       const deleteParams = {
         TableName: TABLE_NAME,
@@ -67,7 +67,7 @@ export const handler = async (event) => {
         },
       };
       await dynamoDb.send(new DeleteCommand(deleteParams));
-      deleteMessage(phone);
+      await deleteMessage(phone);
     } else {
       return {
         statusCode: 400,
