@@ -11,13 +11,12 @@ def send_text(goal_result):
     sender_number = '+15138668921'
     if goal_result == True:
         nameList = []
-        # nameList = getNameAndNumber()
-        nameList.append(('Robbie', '5134906966'))
+        nameList = getNameAndNumber()
         for name, number in nameList:
             safeNumber = polish_number(number)
             print(f'Sending to {name} at {safeNumber}')
             client.messages.create(
-                body=f"Good morning {name}! Free Chick-fil-a has landed in your CFA App.",
+                body=f"Good morning {name}! Free Chick-fil-a breakfast has landed in your CFA App.",
                 from_=sender_number,
                 to="+1" + number
             )
