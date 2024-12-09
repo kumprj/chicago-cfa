@@ -21,6 +21,7 @@ def get_game_id():
     month = today.strftime("%m")
     day = today.strftime("%d")
     day = "21"  # Use sample blackhawks game with this
+    month = '11'
     todays_score_api = f"https://api-web.nhle.com/v1/score/{year}-{month}-{day}"
     response = requests.get(todays_score_api)
 

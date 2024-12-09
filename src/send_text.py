@@ -2,10 +2,8 @@ from get_name_and_number import getNameAndNumber
 from twilio.rest import Client # type: ignore
 import os
 
-# account_sid = os.environ["TWILIO_ACCOUNT_SID"]
-account_sid = 123
-auth_token = 'abc'
-# auth_token = os.environ["TWILIO_AUTH_TOKEN"]
+account_sid = os.environ["TWILIO_ACCOUNT_SID"]
+auth_token = os.environ["TWILIO_AUTH_TOKEN"]
 client = Client(account_sid, auth_token)
 
 
@@ -13,15 +11,16 @@ def send_text(goal_result):
     sender_number = '+15138668921'
     if goal_result == True:
         nameList = []
-        nameList = getNameAndNumber()
+        # nameList = getNameAndNumber()
+        nameList.append(('Robbie', '5134906966'))
         for name, number in nameList:
             safeNumber = polish_number(number)
             print(f'Sending to {name} at {safeNumber}')
-            # client.messages.create(
-            #     body=f"Good morning {name}! Free Chick-fil-a has landed in your CFA App.",
-            #     from_=sender_number,
-            #     to="+1" + number
-            # )
+            client.messages.create(
+                body=f"Good morning {name}! Free Chick-fil-a has landed in your CFA App.",
+                from_=sender_number,
+                to="+1" + number
+            )
 
 def polish_number(number):
     new_number = ''
