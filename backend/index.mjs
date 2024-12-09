@@ -57,7 +57,7 @@ export const handler = async (event) => {
         Item: { Name: name, SK: "GRP1#" + phone, Phone: phone, Blackhawks: "true" },
       };
       await dynamoDb.send(new PutCommand(params));
-      this.createMessage(phone);
+      createMessage(phone).call();
     } else if (action === "Delete My Number") {
       const deleteParams = {
         TableName: TABLE_NAME,
@@ -67,7 +67,7 @@ export const handler = async (event) => {
         },
       };
       await dynamoDb.send(new DeleteCommand(deleteParams));
-      this.deleteMessage(phone);
+      deleteMessage(phone).call();
     } else {
       return {
         statusCode: 400,
@@ -94,7 +94,7 @@ export const handler = async (event) => {
 };
 
 async function createMessage(phone) {
-
+  console.log("got here create");
   const message = await client.messages.create({
 
     body: "You're in for Blackhawks Chick-fil-a breakfast alerts! Reply STOP to unsubscribe. Msg&Data Rates May Apply",
@@ -112,7 +112,7 @@ async function createMessage(phone) {
 }
 
 async function deleteMessage(phone) {
-
+  console.log("got here delete");
   const message = await client.messages.create({
 
     body: "Your data has been successfully deleted from the database. Reply HELP for help. Reply STOP to unsubscribe. Msg&Data Rates May Apply",
