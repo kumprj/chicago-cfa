@@ -35,7 +35,7 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
     - run: npm install --prefix ./backend/
-    - run: zip -j lambda.zip ./backend/**
+    - run: zip -r lambda.zip ./backend/**
     - run: aws lambda update-function-code --function-name=BlackhawksCfaBackend --zip-file=fileb://lambda.zip
 
   deploy-frontend-s3:
