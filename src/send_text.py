@@ -16,7 +16,7 @@ def send_text(goal_result):
             safeNumber = polish_number(number)
             print(f'Sending to {name} at {safeNumber}')
             client.messages.create(
-                body=f"Good morning {name}! Free Chick-fil-a breakfast has landed in your CFA App.",
+                body=f"Great news, {name}! Free Chick-fil-a breakfast has landed in your CFA App.",
                 from_=sender_number,
                 to="+1" + number
             )

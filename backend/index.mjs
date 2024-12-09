@@ -97,7 +97,7 @@ async function createMessage(phone) {
   try {
     console.log("Attempting to send message to phone:", phone);
     const message = await client.messages.create({
-      body: "You're in for Blackhawks Chick-fil-a breakfast alerts! Change your mind? Reply STOP to unsubscribe. Delete data permanently from the webpage freethingsfromyteam.com. Msg&Data Rates May Apply",
+      body: "You're in for Blackhawks Chick-fil-a breakfast alerts! Change your mind? Reply STOP to unsubscribe. Msg&Data Rates May Apply",
       from: "+15138668921",
       to: "+1" + phone,
     });
