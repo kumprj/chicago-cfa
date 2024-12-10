@@ -3,6 +3,7 @@ import os
 # account_sid = os.environ["AWS_ACCESS_KEY_ID"]
 # auth_token = os.environ["AWS_SECRET_ACCESS_KEY"]
 
+# Crawl the DynamoDB table for the users to message.
 def getNameAndNumber():
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table('BlackhawksCfa')
@@ -10,7 +11,7 @@ def getNameAndNumber():
     nameList = []
     for i in response['Items']:
         nameList.append((i['Name'], i['Phone']))
-    print(nameList)
+    # print(nameList)
     return nameList
 
 # For Local dev

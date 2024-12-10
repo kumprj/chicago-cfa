@@ -5,17 +5,18 @@ from datetime import datetime, timedelta
 from send_text import send_text
 
 
+# Loop through all the games from today to check if we have any that are Chicago/United Center.
 def get_game_id():
     today = datetime.today() - timedelta(hours=8)
     year = today.strftime("%Y")
     month = today.strftime("%m")
     day = today.strftime("%d")
-    # day = "21"  # Use sample blackhawks game with this
-    # month = '11' # Use sample blackhawks game with this
+    # day = "21"  # Use this for sample blackhawks game day testing.
+    # month = '11' # Use this for sample blackhawks game day testing.
     todays_score_api = f"https://api-web.nhle.com/v1/score/{year}-{month}-{day}"
     response = requests.get(todays_score_api)
 
-    # This CURL gets the game ID for today and saves it if Chi is in the list.
+    # This CURL gets the game ID values for today and saves it if Chi is in the list.
     game_id = ""
     if response.status_code == 200:
         data = response.json()
@@ -30,13 +31,13 @@ def get_game_id():
         print("Error: ", response.status_code)
 
 
-# GAME SUMMARY
+# GAME SUMMARY - NHL Api. This returns the goals for the game by period.
 def game_summary_func(game_id):
     game_summary = f"https://api-web.nhle.com/v1/gamecenter/{game_id}/landing"
     response = requests.get(game_summary)
     goal_result = False
     if response.status_code == 200:
-        
+
         data = response.json()
         first_period = data["summary"]["scoring"][0]["goals"]
         for goal in first_period:
@@ -52,7 +53,7 @@ def game_summary_func(game_id):
     send_text(goal_result)
 
 
-# Handler
+# Lambda Handler
 def lambda_handler(event, context):
     get_game_id()
 

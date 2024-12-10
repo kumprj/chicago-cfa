@@ -1,5 +1,5 @@
 from get_name_and_number import getNameAndNumber
-from twilio.rest import Client # type: ignore
+from twilio.rest import Client  # type: ignore
 import os
 
 account_sid = os.environ["TWILIO_ACCOUNT_SID"]
@@ -8,6 +8,7 @@ outgoing_number = os.environ["SENDER_NUMBER"]
 client = Client(account_sid, auth_token)
 
 
+# If there is a goal at home, this funtction executes and we alert the user.
 def send_text(goal_result):
     sender_number = outgoing_number
     goal_result = True
@@ -16,15 +17,17 @@ def send_text(goal_result):
         nameList = getNameAndNumber()
         for name, number in nameList:
             safeNumber = polish_number(number)
-            print(f'Sending to {name} at {safeNumber}')
+            print(f"Sending to {name} at {safeNumber}")
             client.messages.create(
                 body=f"Great news, {name}! Free Chick-fil-a breakfast has landed in your CFA App.",
                 from_=sender_number,
-                to="+1" + number
+                to="+1" + number,
             )
 
+
+# Scrub the number of any +1 and hyphens (unlikely, but just in case).
 def polish_number(number):
-    new_number = ''
+    new_number = ""
 
     if "+1" and "-" in number:
         new_number2 = number.replace("+1", "")
@@ -38,9 +41,11 @@ def polish_number(number):
 
     return new_number
 
+
 # For Local dev
 def main():
     send_text(True)
+
 
 # For Local dev
 if __name__ == "__main__":
