@@ -50,7 +50,8 @@ def game_summary_func(game_id):
     else:
         print("Error: ", response.status_code)
 
-    send_text(goal_result)
+    if goal_result == True:
+        send_text()
 
 
 # Lambda Handler

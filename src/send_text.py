@@ -9,20 +9,18 @@ client = Client(account_sid, auth_token)
 
 
 # If there is a goal at home, this funtction executes and we alert the user.
-def send_text(goal_result):
+def send_text():
     sender_number = outgoing_number
-    goal_result = True
-    if goal_result == True:
-        nameList = []
-        nameList = getNameAndNumber()
-        for name, number in nameList:
-            safeNumber = polish_number(number)
-            print(f"Sending to {name} at {safeNumber}")
-            client.messages.create(
-                body=f"Great news, {name}! Free Chick-fil-a breakfast has landed in your CFA App.",
-                from_=sender_number,
-                to="+1" + number,
-            )
+    nameList = []
+    nameList = getNameAndNumber()
+    for name, number in nameList:
+        safeNumber = polish_number(number)
+        print(f"Sending to {name} at {safeNumber}")
+        client.messages.create(
+            body=f"Great news, {name}! Free Chick-fil-a breakfast has landed in your CFA App.",
+            from_=sender_number,
+            to="+1" + number,
+        )
 
 
 # Scrub the number of any +1 and hyphens (unlikely, but just in case).
