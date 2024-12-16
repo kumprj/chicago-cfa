@@ -7,7 +7,7 @@ from send_text import send_text
 
 # Loop through all the games from today to check if we have any that are Chicago/United Center.
 def get_game_id():
-    today = datetime.today() - timedelta(hours=13)
+    today = datetime.today() - timedelta(days=1)
     year = today.strftime("%Y")
     month = today.strftime("%m")
     day = today.strftime("%d")
