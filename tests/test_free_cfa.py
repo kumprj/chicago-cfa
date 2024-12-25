@@ -1,11 +1,11 @@
 from unittest import TestCase
 from unittest.mock import patch, MagicMock
-from src.blackhawks_cfa.free_cfa import get_game_id
+from src.free_cfa import get_game_id
 
 class TestFreeCfa(TestCase):
 
-    @patch('src.blackhawks_cfa.free_cfa.requests.get')
-    @patch('src.blackhawks_cfa.free_cfa.game_summary_func')
+    @patch('src.free_cfa.requests.get')
+    @patch('src.free_cfa.game_summary_func')
     def test_get_game_id(self, mock_game_summary_func, mock_requests_get):
         # Mock the response from the requests.get call
         mock_response = MagicMock()
@@ -28,7 +28,7 @@ class TestFreeCfa(TestCase):
         # Assert the game_summary_func was called with the correct game_id
         mock_game_summary_func.assert_called_once_with("12345")
 
-    @patch('src.blackhawks_cfa.free_cfa.requests.get')
+    @patch('src.free_cfa.requests.get')
     def test_get_game_id_no_games(self, mock_requests_get):
         # Mock the response from the requests.get call
         mock_response = MagicMock()

@@ -1,10 +1,10 @@
 import unittest
 from unittest.mock import patch, MagicMock
-from src.blackhawks_cfa.get_name_and_number import getNameAndNumber
+from src.get_name_and_number import getNameAndNumber
 
 class TestGetNameAndNumber(unittest.TestCase):
 
-    @patch('src.blackhawks_cfa.get_name_and_number.boto3.resource')
+    @patch('src.get_name_and_number.boto3.resource')
     def test_get_name_and_number(self, mock_boto3_resource):
         # Mock the DynamoDB table and its scan method
         mock_table = MagicMock()
