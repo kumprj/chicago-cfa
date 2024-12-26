@@ -1,11 +1,12 @@
 import sys
 import os
-
-from send_text import send_text
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../src')))
 
 import unittest
 from unittest.mock import patch, MagicMock
+
+# Import the send_text function
+from src.send_text import send_text
 
 @patch.dict(os.environ, {
     "TWILIO_ACCOUNT_SID": "abc123",
@@ -30,9 +31,14 @@ class TestSendText(unittest.TestCase):
 
         # Call the function
         send_text()
-
+        # Debugging: Print the call count
+        print(f"mock_create: {mock_create}")
+        print(f"mock_create1: {mock_create}")
+        print(f"mock_create: {mock_create}")
+        print(f"mock_create: {mock_create}")
+        print(f"mock_create: {mock_create}")
         # Assert the Twilio messages were sent
-        self.assertEqual(mock_create.call_count, 2)
+        self.assertEqual(mock_create, 2)
         mock_create.assert_any_call(
             body='Great news, John Doe! Free Chick-fil-a breakfast has landed in your CFA App.',
             from_=os.environ["SENDER_NUMBER"],
