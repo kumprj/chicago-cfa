@@ -34,11 +34,11 @@ def send_text():
     for name, number in nameList:
         safeNumber = polish_number(number)
         print(f"Sending to {name} at {safeNumber}")
-        # message_output = client.messages.create(
-        #     body=f"Great news, {name}! Free Chick-fil-a breakfast has landed in your CFA App.",
-        #     from_=sender_number,
-        #     to="+1" + number,
-        # )
+        message_output = client.messages.create(
+            body=f"Great news, {name}! Free Chick-fil-a breakfast has landed in your CFA App.",
+            from_=sender_number,
+            to="+1" + number,
+        )
 
         # Twilio Error code for sender unsubscribed.
         # if message_output.error_code == 21610:

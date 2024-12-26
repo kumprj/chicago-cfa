@@ -32,10 +32,14 @@ class TestSendText(unittest.TestCase):
         # Call the function
         send_text()
         # Debugging: Print the call count
-        print(f"mock_create: {mock_create}")
+        print(f"mock_message: {mock_message.called_count}")
+        print(f"mock_create.called_count: {mock_create.call_count}")
+        print(f"mock_create.called: {mock_create.called}")
+        # print(f"mock_msg: {mock_msg.called}")
 
         # Assert the Twilio messages were sent
-        self.assertEqual(mock_create, 2)
+        self.assertEqual(mock_create.call_count, 2)
+        # assert mock_create.called is True
         mock_create.assert_any_call(
             body='Great news, John Doe! Free Chick-fil-a breakfast has landed in your CFA App.',
             from_=os.environ["SENDER_NUMBER"],
