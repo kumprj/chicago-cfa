@@ -24,15 +24,16 @@ from src.send_text import send_text
 @patch("src.send_text.getNameAndNumber")
 class TestSendText(unittest.TestCase):
     def setUp(self):
-        os.environ['SENDER_NUMBER'] = '+1234567890'
-        os.environ['TWILIO_AUTH_TOKEN'] = 'xyz123'
-        os.environ['TWILIO_ACCOUNT_SID'] = 'abc123'
+        os.environ["SENDER_NUMBER"] = "+1234567890"
+        os.environ["TWILIO_AUTH_TOKEN"] = "xyz123"
+        os.environ["TWILIO_ACCOUNT_SID"] = "abc123"
         print(os.environ)
+
     def test_send_text(self, mock_get_name_and_number, mock_create):
         print(os.environ)
-        sender_number = os.getenv('SENDER_NUMBER')
-        twilio_auth_token = os.getenv('TWILIO_AUTH_TOKEN')
-        twilio_account_sid = os.getenv('TWILIO_ACCOUNT_SID')
+        sender_number = os.getenv("SENDER_NUMBER")
+        twilio_auth_token = os.getenv("TWILIO_AUTH_TOKEN")
+        twilio_account_sid = os.getenv("TWILIO_ACCOUNT_SID")
         # Ensure the environment variables are set correctly
         self.assertIsNotNone(sender_number)
         self.assertIsNotNone(twilio_auth_token)
@@ -51,7 +52,7 @@ class TestSendText(unittest.TestCase):
         print(f"mock_message: {mock_message.called_count}")
         print(f"mock_create.called_count: {mock_create.call_count}")
         print(f"mock_create.called: {mock_create.called}")
-        
+
         # print(f"mock_msg: {mock_msg.called}")
 
         # Assert the Twilio messages were sent
