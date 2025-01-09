@@ -1,5 +1,6 @@
 from get_name_and_number import getNameAndNumber
 from twilio.rest import Client  # type: ignore
+from twilio.base.exceptions import TwilioException  # type: ignore
 import os
 import boto3
 
@@ -15,43 +16,31 @@ phone_numbers_table = ddb_resource.Table(table_name)
 
 # If there is a goal at home, this funtction executes and we alert the user.
 def send_text():
-
     sender_number = outgoing_number
     nameList = []
     nameList = getNameAndNumber()
-    # for name, number in nameList:
-    #     safeNumber = polish_number(number)
-    #     print(f"Sending to {name} at {safeNumber}")
-    #     message_output = client.messages.create(
-    #         body=f"Great news, {name}! Free Chick-fil-a breakfast has landed in your CFA App.",
-    #         from_=sender_number,
-    #         to="+1" + number,
-    #     )
-
-    #     # Twilio Error code for sender unsubscribed.
-    #     if message_output.error_code == 21610:
-    #         delete_data(name, sender_number)
-
     for name, number in nameList:
         safeNumber = polish_number(number)
         print(f"Sending to {name} at {safeNumber}")
-        print(f"outgoing_number is {outgoing_number}")
-        message_output = client.messages.create(
-            body=f"Great news, {name}! Free Chick-fil-a breakfast has landed in your CFA App.",
-            from_=sender_number,
-            to="+1" + number,
-        )
-
-        # Twilio Error code for sender unsubscribed.
-        # if message_output.error_code == 21610:
-        #     delete_data(name, sender_number)
+        try:
+            client.messages.create(
+                body=f"Great news, {name}! Open your Chick-fil-a app by 9am to claim your free breakfast sandwich.",
+                from_=sender_number,
+                to="+1" + number,
+            )
+        except TwilioException as e:
+            print(e.msg + e.code)
+            # Twilio Unsubscribed error code is 21610.
+            if e.code == 21610:
+                print(f'Deleting {name} due to unsubscribing.')
+                delete_data(name, number)
 
 
 def delete_data(name, number):
-    response = phone_numbers_table.delete_item(
-        Key={"Name": name, "Number": "GRP1#" + number}
+    dynamo_response = phone_numbers_table.delete_item(
+        Key={"Name": name, "SK": "GRP1#" + number}
     )
-    print(response)
+    print(dynamo_response)
 
 
 # Scrub the number of any +1 and hyphens (unlikely, but just in case).
