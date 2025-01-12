@@ -1,6 +1,7 @@
 from get_name_and_number import getNameAndNumber
 from twilio.rest import Client  # type: ignore
 from twilio.base.exceptions import TwilioException  # type: ignore
+import datetime
 import os
 import boto3
 
@@ -18,13 +19,14 @@ phone_numbers_table = ddb_resource.Table(table_name)
 def send_text():
     sender_number = outgoing_number
     nameList = []
+    message = is_sunday()
     nameList = getNameAndNumber()
     for name, number in nameList:
         safeNumber = polish_number(number)
         print(f"Sending to {name} at {safeNumber}")
         try:
             client.messages.create(
-                body=f"Great news, {name}! Open your Chick-fil-a app by 9am to claim your free breakfast sandwich.",
+                body=f"Great news, {name}! {message}",
                 from_=sender_number,
                 to="+1" + number,
             )
@@ -35,7 +37,12 @@ def send_text():
                 print(f'Deleting {name} due to unsubscribing.')
                 delete_data(name, number)
 
-
+def is_sunday():
+    today = datetime.date.today()
+    if today.weekday() == 6: #  6 represents Sunday
+        return "Free breakfast sandwich is available for Monday."
+    else:
+        return "Open your Chick-fil-a app by 9am to claim your free breakfast sandwich.",
 def delete_data(name, number):
     dynamo_response = phone_numbers_table.delete_item(
         Key={"Name": name, "SK": "GRP1#" + number}
