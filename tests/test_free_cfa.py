@@ -40,6 +40,10 @@ class TestFreeCfa(TestCase):
         # Assert the game_summary_func was called with the correct game_id
         mock_game_summary_func.assert_called_once_with("12345")
 
+        # Add additional assertions to handle the Sunday edge case
+        # Example: Check if the function behaves differently on Sundays
+        # self.assertTrue(some_condition)
+
     @patch('src.free_cfa.requests.get')
     def test_get_game_id_no_games(self, mock_requests_get):
         # Mock the response from the requests.get call
