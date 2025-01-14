@@ -20,13 +20,15 @@ def send_text():
     sender_number = outgoing_number
     nameList = []
     message = is_sunday()
+    messange_sent = f"Great news, {name}! {message}"
     nameList = getNameAndNumber()
+    
     for name, number in nameList:
         safeNumber = polish_number(number)
         print(f"Sending to {name} at {safeNumber}")
         try:
             client.messages.create(
-                body=f"Great news, {name}! {message}",
+                body=messange_sent,
                 from_=sender_number,
                 to="+1" + number,
             )
