@@ -31,18 +31,22 @@ def send_text():
                 to="+1" + number,
             )
         except TwilioException as e:
-            print(e.msg + e.code)
+            print(e.msg)
+            print(e.code)
             # Twilio Unsubscribed error code is 21610.
             if e.code == 21610:
-                print(f'Deleting {name} due to unsubscribing.')
+                print(f"Deleting {name} due to unsubscribing.")
                 delete_data(name, number)
+
 
 def is_sunday():
     today = datetime.date.today()
-    if today.weekday() == 6: #  6 represents Sunday
+    if today.weekday() == 6:  #  6 represents Sunday
         return "Free breakfast sandwich is available for Monday."
     else:
-        return "Open your Chick-fil-a app by 9am to claim your free breakfast sandwich.",
+        return "Open your Chick-fil-a app by 9am to claim your free breakfast sandwich."
+
+
 def delete_data(name, number):
     dynamo_response = phone_numbers_table.delete_item(
         Key={"Name": name, "SK": "GRP1#" + number}
