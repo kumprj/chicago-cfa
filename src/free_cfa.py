@@ -35,6 +35,7 @@ def get_game_id():
 def game_summary_func(game_id):
     game_summary = f"https://api-web.nhle.com/v1/gamecenter/{game_id}/landing"
     response = requests.get(game_summary)
+    player_scoring = ""
     goal_result = False
     if response.status_code == 200:
 
@@ -44,6 +45,10 @@ def game_summary_func(game_id):
             print(goal)
             if goal["teamAbbrev"]["default"] == "CHI":
                 goal_result = True
+                player_scoring = (
+                    goal["firstName"]["default"] + " " + goal["lastName"]["default"]
+                )
+                print(f"player_scoring was {player_scoring}")
                 break
             else:
                 continue
@@ -51,10 +56,10 @@ def game_summary_func(game_id):
         print("Error: ", response.status_code)
 
     if goal_result == True:
-        send_text()
+        send_text(player_scoring)
 
 
-# Lambda Handler
+# Lambda Handlers
 def lambda_handler(event, context):
     get_game_id()
 

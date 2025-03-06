@@ -16,15 +16,15 @@ phone_numbers_table = ddb_resource.Table(table_name)
 
 
 # If there is a goal at home, this funtction executes and we alert the user.
-def send_text():
+def send_text(player_scoring):
     sender_number = outgoing_number
     nameList = []
     message = is_sunday()
-    
+
     nameList = getNameAndNumber()
-    
+
     for name, number in nameList:
-        message_sent = f"Great news, {name}! {message}"
+        message_sent = f"Great news, {name}! {player_scoring} scored in the first period at home. {message}"
         safeNumber = polish_number(number)
         print(f"Sending to {name} at {safeNumber}")
         try:
@@ -45,7 +45,7 @@ def send_text():
 def is_sunday():
     today = datetime.date.today()
     if today.weekday() == 6:  #  6 represents Sunday
-        return "Free breakfast sandwich is available for Monday."
+        return "Free chick fil a breakfast! Sandwich is available for Monday."
     else:
         return "Open your Chick-fil-a app by 9am to claim your free breakfast sandwich."
 
