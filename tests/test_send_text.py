@@ -11,6 +11,8 @@ from unittest.mock import patch, MagicMock
 # Import the send_text function
 from src.send_text import send_text
 
+# For this test to pass, the below env vars need to be set up. They are not being properly set in the Terminal.
+
 
 @patch.dict(
     os.environ,
@@ -23,7 +25,7 @@ from src.send_text import send_text
 @patch("src.send_text.client.messages.create")
 @patch("src.send_text.getNameAndNumber")
 class TestSendText(unittest.TestCase):
-    def setUp(self):
+    def setup(self):
         os.environ["SENDER_NUMBER"] = "+1234567890"
         os.environ["TWILIO_AUTH_TOKEN"] = "xyz123"
         os.environ["TWILIO_ACCOUNT_SID"] = "abc123"
@@ -47,7 +49,7 @@ class TestSendText(unittest.TestCase):
         mock_message.error_code = None
 
         # Call the function
-        send_text()
+        send_text("Patrick Kane")
         # Debugging: Print the call count
         print(f"mock_message: {mock_message.called_count}")
         print(f"mock_create.called_count: {mock_create.call_count}")
@@ -59,7 +61,7 @@ class TestSendText(unittest.TestCase):
         self.assertEqual(mock_create.call_count, 1)
         # assert mock_create.called is True
         mock_create.assert_called_with(
-            body="Great news, John Doe! Free Chick-fil-a breakfast has landed in your CFA App.",
+            body="Great news, John Doe! Patrick Kane scored in the first period at home. Open your Chick-fil-a app by 9am to claim your free breakfast sandwich.",
             from_=os.environ["SENDER_NUMBER"],
             to="+1234567890",
         )

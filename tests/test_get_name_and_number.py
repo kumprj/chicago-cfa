@@ -4,7 +4,7 @@ from unittest.mock import patch, MagicMock
 from src.get_name_and_number import getNameAndNumber
 
 class TestGetNameAndNumber(unittest.TestCase):
-    def setUp(self):
+    def setup(self):
         os.environ['SENDER_NUMBER'] = '+1234567890'
         os.environ['TWILIO_AUTH_TOKEN'] = 'xyz123'
         os.environ['TWILIO_ACCOUNT_SID'] = 'abc123'
