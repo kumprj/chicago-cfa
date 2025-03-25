@@ -2,13 +2,8 @@
 
 name: Build Application
 on:
-  push:
-    branches:
-    - develop
-    - feature/*
-    - remove*
   pull_request:
-    types: [ opened ]
+    types: [ synchronized ]
 jobs:
   build:
     name: Application Build Stage
