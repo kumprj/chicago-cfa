@@ -28,7 +28,7 @@ jobs:
         export SENDER_NUMBER="+1234567890"
         python -m pip install --upgrade pip
         pip install -r tests/test_requirements.txt
-        PYTHONPATH=src python3 -m unittest discover -v -s tests -p "*test*.py"
+        PYTHONPATH=src python -m unittest discover -v -s tests -p "*test*.py"
   # deploy-python-lambda:
   #   runs-on: ubuntu-latest
   #   steps:
