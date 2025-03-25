@@ -4,7 +4,7 @@ import os
 from src.free_cfa import get_game_id
 
 class TestFreeCfa(TestCase):
-    def setUp(self):
+    def setup(self):
         os.environ['SENDER_NUMBER'] = '+1234567890'
         os.environ['TWILIO_AUTH_TOKEN'] = 'xyz123'
         os.environ['TWILIO_ACCOUNT_SID'] = 'abc123'
