@@ -20,11 +20,12 @@ jobs:
     # You can test your matrix by printing the current Python version
     - name: Display Python version
       run: python -c "import sys; print(sys.version)"
-    - name: Install dependencies
+    # Try and figure out why env vars arent being set in the unit tests.
+    - name: Install dependencies & Run Tests
       run: |
         export TWILIO_ACCOUNT_SID=abc123
         export TWILIO_AUTH_TOKEN=xyz123
-        export SENDER_NUMBER=+1234567890"
+        export SENDER_NUMBER="+1234567890"
         python -m pip install --upgrade pip
         pip install -r tests/test_requirements.txt
         PYTHONPATH=src python3 -m unittest discover -v -s tests -p "*test*.py"
