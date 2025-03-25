@@ -32,6 +32,7 @@ jobs:
         export TWILIO_ACCOUNT_SID=abc123
         export TWILIO_AUTH_TOKEN=xyz123
         export SENDER_NUMBER="+1234567890"
+        export AWS_DEFAULT_REGION=us-east-1
         PYTHONPATH=src python -m unittest discover -v -s tests -p "test*.py"
   # deploy-python-lambda:
   #   runs-on: ubuntu-latest
