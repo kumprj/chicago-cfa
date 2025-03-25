@@ -15,7 +15,7 @@ jobs:
       with:
         python-version: '3.13'
     # Try and figure out why env vars arent being set in the unit tests...
-    - name: Install dependencies & Run Tests
+    - name: Install Test Dependencies
       run: |
         cd $GITHUB_WORKSPACE
         python -m pip install --upgrade pip
