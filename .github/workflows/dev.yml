@@ -9,7 +9,6 @@ on:
     - remove*
   pull_request:
     types: [ opened ]
-    # Test this
 jobs:
   build:
     name: Application Build Stage
