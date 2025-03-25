@@ -12,6 +12,7 @@ on:
     # Test this
 jobs:
   build:
+    name: Application Build Stage
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
