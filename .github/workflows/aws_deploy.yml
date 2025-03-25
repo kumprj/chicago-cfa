@@ -1,6 +1,6 @@
 # Uses https://github.com/yvesgurcan/deploy-lambda-function
 
-name: Build & Deploy Lambda
+name: Deploy Application
 on:
   push:
     branches: [ main ]
