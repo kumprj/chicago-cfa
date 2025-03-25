@@ -1,0 +1,34 @@
+# Uses https://github.com/yvesgurcan/deploy-lambda-function
+
+name: Build & Deploy Lambda
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      # This is the version of the action for setting up Python, not the Python version.
+      uses: actions/setup-python@v5
+      with:
+        # Semantic version range syntax or exact version of a Python version
+        python-version: '3.13'
+        # Optional - x64 or x86 architecture, defaults to x64
+        architecture: 'x64'
+    # You can test your matrix by printing the current Python version
+    - name: Display Python version
+      run: python -c "import sys; print(sys.version)"
+    # Try and figure out why env vars arent being set in the unit tests.
+    - name: Install dependencies & Run Tests
+      run: |
+        cd $GITHUB_WORKSPACE
+        python -m pip install --upgrade pip
+        pip install -r tests/test_requirements.txt
+    - name: Run Tests
+      run: |
+        cd $GITHUB_WORKSPACE
+        export TWILIO_ACCOUNT_SID=abc123
+        export TWILIO_AUTH_TOKEN=xyz123
+        export SENDER_NUMBER="+1234567890"
+        export AWS_DEFAULT_REGION=us-east-1
+        PYTHONPATH=src python -m unittest discover -v -s tests -p "test*.py"
