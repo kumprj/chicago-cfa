@@ -16,16 +16,16 @@ phone_numbers_table = ddb_resource.Table(table_name)
 
 
 # If there is a goal at home, this funtction executes and we alert the user.
-def send_text():
+def send_text_update():
     sender_number = outgoing_number
     nameList = []
 
     nameList = getNameAndNumber()
 
     for name, number in nameList:
-        message_sent = f"Interested in free chick-fil-a sandwiches when the Chicago Cubs win at home? Enter your name: {name} exactly as preceding on freethingsfrommyteam.com and check the toggle for both Cubs and Blackhawks."
+        message_sent = f"Interested in free chick-fil-a sandwiches when the Chicago Cubs win at home? Enter your phone number and name: {name} exactly as shown on freethingsfrommyteam.com. Check the toggle(s) for teams you want to subscribe. Reply STOP to unsubscribe and delete data."
         safeNumber = polish_number(number)
-        print(f"Sending to {name} at {safeNumber}")
+        print(message_sent)
         # try:
         #     client.messages.create(
         #         body=message_sent,
@@ -86,11 +86,11 @@ def polish_number(number):
     return new_number
 
 
-# For Local dev
-# def main():
-#     send_text()
+# # For Local dev
+def main():
+    send_text_update()
 
 
-# For Local dev
-# if __name__ == "__main__":
-#     main()
+# # For Local dev
+if __name__ == "__main__":
+    main()
