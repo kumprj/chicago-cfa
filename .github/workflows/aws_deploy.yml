@@ -5,7 +5,7 @@ on:
   push:
     branches: [ main ]
 jobs:
-  deploy-python-lambda:
+  deploy-hawks-lambda:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -21,6 +21,23 @@ jobs:
     - run: cp src/free_cfa.py src/get_name_and_number.py src/send_text.py package
     - run: cd package/ && zip -r ../package.zip **
     - run: aws lambda update-function-code --function-name=blackhawks-cfa-texter --zip-file=fileb://package.zip
+
+  deploy-cubs-lambda:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        python-version: 3.13
+    - uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+    - run: cat src/requirements.txt | xargs -n 1 python3 -m pip install --target package/
+    - run: cp src/cubs.py src/get_name_and_number.py src/send_text.py package
+    - run: cd package/ && zip -r ../package.zip **
+    - run: aws lambda update-function-code --function-name=cubs-cfa-texter --zip-file=fileb://package.zip
 
   deploy-backend-lambda:
     runs-on: ubuntu-latest
