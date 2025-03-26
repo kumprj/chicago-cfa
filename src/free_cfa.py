@@ -40,7 +40,9 @@ def game_summary_func(game_id):
     if response.status_code == 200:
 
         data = response.json()
+        print(data)
         first_period = data["summary"]["scoring"][0]["goals"]
+        print(first_period)
         for goal in first_period:
             print(goal)
             if goal["teamAbbrev"]["default"] == "CHI":
