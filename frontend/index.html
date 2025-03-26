@@ -56,14 +56,30 @@
             <form id="dataForm">
               <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
-                <input type="text" id="name" class="form-control" placeholder="Enter your name" required>
+                <input type="text" id="name" class="form-control" placeholder="Enter your name" required
+                  autocomplete="off">
               </div>
               <div class="mb-3">
                 <label for="phone" class="form-label">Phone Number</label>
                 <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number" required
-                  pattern="^\d{10}$" title="Phone number must be exactly 10 digits" maxlength="10">
+                  pattern="^\d{10}$" title="Phone number must be exactly 10 digits" maxlength="10" autocomplete="off">
               </div>
               <p class="note">Don't enter '+1' or any hyphens. Message "STOP" to Opt Out and have data deleted.</p>
+              <p class="text-center">I want to subscribe to..</p>
+              <div class="d-flex justify-content-center">
+                <div class="form-check form-switch mb-3 d-flex align-items-center">
+                  <input class="form-check-input me-2" type="checkbox" id="blackhawksCheckbox"
+                    onchange="this.value = this.checked ? 'true' : 'false';">
+                  <label class="form-check-label" for="cubsCheckbox">Cubs</label>
+                </div>
+              </div>
+              <div class="d-flex justify-content-center">
+                <div class="form-check form-switch mb-3 d-flex align-items-center">
+                  <input class="form-check-input me-2" type="checkbox" id="blackhawksCheckbox"
+                    onchange="this.value = this.checked ? 'true' : 'false';">
+                  <label class="form-check-label" for="blackhawksCheckbox">Blackhawks</label>
+                </div>
+              </div>
               <div class="d-flex justify-content-center">
                 <button id="success-button" type="submit" class="btn btn-success rounded-btn me-2">Add My
                   Number</button>
@@ -103,6 +119,8 @@
 
       const name = document.getElementById("name").value;
       const phone = document.getElementById("phone").value;
+      const hawks = document.getElementById("blackhawksCheckbox").value;
+      const cubs = document.getElementById("cubsCheckbox").value;
       const action = e.submitter.innerText; // Grab the button's text value
       const spinner = document.getElementById("loading-spinner");
       spinner.classList.remove("d-none");
@@ -112,7 +130,7 @@
         const response = await fetch(apiEndpoint, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, phone, action }),
+          body: JSON.stringify({ name, phone, action, hawks, cubs }),
         });
 
         const result = await response.json(); //result.message ||

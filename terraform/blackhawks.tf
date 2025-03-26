@@ -1,6 +1,6 @@
 
 
-module "lambda_function" {
+module "hawks_lambda_function" {
   source = "terraform-aws-modules/lambda/aws"
 
   function_name = "blackhawks-cfa-texter"
@@ -11,7 +11,5 @@ module "lambda_function" {
   create_package         = false
   local_existing_package = "../package.zip" # Dummy zip to be updated via a Github Action
 
-#   tags = {
-#     Name = "bezos scheduler"
-#   }
 }
+

@@ -39,8 +39,10 @@ export const handler = async (event) => {
       };
     }
 
-    const { name, phone, action } = body;
+    const { name, phone, action, hawks, cubs } = body;
     console.log("action is " + action);
+    console.log("hawks is " + hawks);
+    console.log("cubs is " + cubs);
     // Validate input fields - name and phone are Pk/Sk.
     if (!name || !phone) {
       return {
@@ -52,7 +54,7 @@ export const handler = async (event) => {
     if (action === "Add My Number") {
       const params = {
         TableName: TABLE_NAME,
-        Item: { Name: name, SK: "GRP1#" + phone, Phone: phone, Blackhawks: "true" },
+        Item: { Name: name, SK: "GRP1#" + phone, Phone: phone, Blackhawks: hawks, Cubs: cubs },
       };
       await dynamoDb.send(new PutCommand(params));
       await createMessage(phone, name);

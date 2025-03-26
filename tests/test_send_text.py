@@ -49,7 +49,7 @@ class TestSendText(unittest.TestCase):
         mock_message.error_code = None
 
         # Call the function
-        send_text("Patrick Kane")
+        send_text("hockey", "Patrick Kane")
         # Debugging: Print the call count
         print(f"mock_message: {mock_message.called_count}")
         print(f"mock_create.called_count: {mock_create.call_count}")
@@ -59,9 +59,11 @@ class TestSendText(unittest.TestCase):
 
         # Assert the Twilio messages were sent
         self.assertEqual(mock_create.call_count, 1)
+
         # assert mock_create.called is True
+        # Confirm if this works on Sundays.
         mock_create.assert_called_with(
-            body="Great news, John Doe! Patrick Kane scored in the first period at home. Open your Chick-fil-a app by 9am to claim your free breakfast sandwich.",
+            body="Great news, John Doe! Patrick Kane scored in the first period at home. Free sandwich has landed.",
             from_=os.environ["SENDER_NUMBER"],
             to="+1234567890",
         )
