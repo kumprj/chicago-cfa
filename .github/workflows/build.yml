@@ -5,7 +5,7 @@ on:
   push:
     branches: [ feature/* ]
   pull_request:
-    types: [ synchronized ]
+    types: [ opened, synchronized ]
 jobs:
   build:
     name: Application Build Stage
