@@ -56,19 +56,20 @@
             <form id="dataForm">
               <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
-                <input type="text" id="name" class="form-control" placeholder="Enter your name" required
-                  autocomplete="off">
+                <input type="text" id="name" class="form-control" placeholder="Enter your name" autocomplete="off"
+                  required>
               </div>
               <div class="mb-3">
                 <label for="phone" class="form-label">Phone Number</label>
                 <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number" required
                   autocomplete="off" pattern="^\d{10}$" title="Phone number must be exactly 10 digits" maxlength="10">
               </div>
-              <p class="note">Don't enter '+1' or any hyphens. Message "STOP" to Opt Out and have data deleted.</p>
+              <p class="note">Don't enter '+1' or any hyphens. Message "STOP" to Opt Out - data will be deleted within
+                24hrs.</p>
               <p class="text-center">I want to subscribe to..</p>
               <div class="d-flex justify-content-center">
                 <div class="form-check form-switch mb-3 d-flex align-items-center">
-                  <input class="form-check-input me-2" type="checkbox" id="blackhawksCheckbox"
+                  <input class="form-check-input me-2" type="checkbox" id="cubsCheckbox"
                     onchange="this.value = this.checked ? 'true' : 'false';">
                   <label class="form-check-label" for="cubsCheckbox">Cubs</label>
                 </div>
