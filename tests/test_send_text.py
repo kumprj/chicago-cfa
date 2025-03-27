@@ -41,7 +41,9 @@ class TestSendText(unittest.TestCase):
         self.assertIsNotNone(twilio_auth_token)
         self.assertIsNotNone(twilio_account_sid)
         # Mock the getNameAndNumber function
-        mock_get_name_and_number.return_value = [("John Doe", "234567890", "true", "true")]
+        mock_get_name_and_number.return_value = [
+            ("John Doe", "234567890", "true", "true")
+        ]
 
         # Mock the Twilio message creation
         mock_message = MagicMock()
@@ -68,9 +70,9 @@ class TestSendText(unittest.TestCase):
             to="+1234567890",
         )
         # mock_create.assert_called_with(
-        #     body="Great news, Jane Smith! Free Chick-fil-a breakfast has landed in your CFA App.",
+        #     body="Great news, Jane Smith! Patrick Kane scored in the first period at home. Free sandwich has landed for tomorrow.",
         #     from_=os.environ["SENDER_NUMBER"],
-        #     to="+10987654321"
+        #     to="+10987654321",
         # )
 
 
