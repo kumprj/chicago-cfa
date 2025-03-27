@@ -41,7 +41,7 @@ class TestSendText(unittest.TestCase):
         self.assertIsNotNone(twilio_auth_token)
         self.assertIsNotNone(twilio_account_sid)
         # Mock the getNameAndNumber function
-        mock_get_name_and_number.return_value = [("John Doe", "234567890")]
+        mock_get_name_and_number.return_value = [("John Doe", "234567890", "true", "true")]
 
         # Mock the Twilio message creation
         mock_message = MagicMock()
@@ -49,7 +49,7 @@ class TestSendText(unittest.TestCase):
         mock_message.error_code = None
 
         # Call the function
-        send_text("hockey", "Patrick Kane")
+        send_text("Blackhawks", "Patrick Kane")
         # Debugging: Print the call count
         print(f"mock_message: {mock_message.called_count}")
         print(f"mock_create.called_count: {mock_create.call_count}")
