@@ -46,7 +46,7 @@ def message_to_send(sport, player_scoring):
     text_factor_in_sunday = (
         "Today is Sunday - free sandwich is available for Monday."
         if is_sunday()
-        else "Free sandwich has landed."
+        else "Free sandwich has landed for tomorrow."
     )
     if sport == "hockey":
         return f"{player_scoring} scored in the first period at home. {text_factor_in_sunday}"

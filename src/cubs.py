@@ -37,7 +37,7 @@ def main():
 
     print(cubs_schedule)
     if len(cubs_schedule) == 0:
-        print("No games today")
+        print("No Cubs game today")
         return
     for item in cubs_schedule:
         gamepk = mlb.get_game_box_score(item.gamepk)
@@ -54,8 +54,9 @@ def main():
                 if home_team_info == "Chicago Cubs" and home_team_winner == True:
                     print("Cubs won today at home!")
                     # send_text("baseball", "Cubs")
-                if home_team_info == "Chicago Cubs" and home_team_winner == False:
-                    print("Cubs lost today at home :( ")
+                    break
+                # if home_team_info == "Chicago Cubs" and home_team_winner == False:
+                #     print("Cubs lost today at home :( ")
 
 
 # Lambda Handlers
