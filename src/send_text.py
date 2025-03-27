@@ -30,17 +30,17 @@ def send_text(team, player_scoring):
 
         if verify_user(cubs, hawks, team) == False:
             continue
-
-        twilio_msg_fire(message_sent, sender_number, safeNumber)
+        else:
+            twilio_msg_fire(message_sent, sender_number, safeNumber)
 
 
 # Test these and phone number to ensure they are coming in as Strings.
 def verify_user(cubs, hawks, team):
-    if team == "Blackhawks" and hawks == "false":
-        return False
-    if team == "Cubs" and cubs == "false":
-        return False
-    return True
+    if team == "Blackhawks" and hawks == "true":
+        return True
+    if team == "Cubs" and cubs == "true":
+        return True
+    return False
 
 
 # Test phone number to ensure they are coming in as Strings.
