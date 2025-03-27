@@ -54,7 +54,7 @@ export const handler = async (event) => {
     if (action === "Add My Number") {
       const params = {
         TableName: TABLE_NAME,
-        Item: { Name: name, SK: "GRP1#" + phone, Phone: phone, Blackhawks: hawks, Cubs: cubs },
+        Item: { Phone: phone, SK: name, Blackhawks: hawks, Cubs: cubs },
       };
       await dynamoDb.send(new PutCommand(params));
       await createMessage(phone, name);
