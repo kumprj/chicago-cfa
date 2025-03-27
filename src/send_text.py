@@ -28,24 +28,36 @@ def send_text(team, player_scoring):
         safeNumber = polish_number(number)
         print(f"Sending to {name} at {safeNumber}")
 
-        # Test these and phone number to ensure they are coming in as Strings.
-        if team == "Blackhawks" and hawks == "true":
+        if verify_user(cubs, hawks, team) == False:
             continue
-        if team == "Cubs" and cubs == "false":
-            continue
-        try:
-            client.messages.create(
-                body=message_sent,
-                from_=sender_number,
-                to="+1" + number,
-            )
-        except TwilioException as e:
-            print(e.msg)
-            print(e.code)
-            # Twilio Unsubscribed error code is 21610.
-            if e.code == 21610:
-                print(f"Deleting {name} due to unsubscribing.")
-                delete_data(name, number)
+
+        twilio_msg_fire(message_sent, sender_number, safeNumber)
+
+
+# Test these and phone number to ensure they are coming in as Strings.
+def verify_user(cubs, hawks, team):
+    if team == "Blackhawks" and hawks == "false":
+        return False
+    if team == "Cubs" and cubs == "false":
+        return False
+    return True
+
+
+# Test phone number to ensure they are coming in as Strings.
+def twilio_msg_fire(message_sent, sender_number, safeNumber):
+    try:
+        client.messages.create(
+            body=message_sent,
+            from_=sender_number,
+            to="+1" + safeNumber,
+        )
+    except TwilioException as e:
+        print(e.msg)
+        print(e.code)
+        # Twilio Unsubscribed error code is 21610.
+        if e.code == 21610:
+            print(f"Deleting {safeNumber} due to unsubscribing.")
+            delete_data(safeNumber, safeNumber)
 
 
 def message_to_send(team, player_scoring):
