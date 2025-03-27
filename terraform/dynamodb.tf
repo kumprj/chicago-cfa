@@ -1,8 +1,6 @@
 resource "aws_dynamodb_table" "basic-dynamodb-table" {
   name           = "ChickfilaData"
-  billing_mode   = "PROVISIONED"
-  read_capacity  = 20
-  write_capacity = 20
+  billing_mode   = "PAY_PER_REQUEST"
   hash_key       = "Phone"
 
   attribute {
