@@ -15,6 +15,7 @@
 
 import mlbstatsapi
 import os
+from datetime import datetime, timedelta, timezone
 import requests
 
 from send_text import send_text
@@ -23,13 +24,20 @@ from send_text import send_text
 # For Local dev
 def main():
     mlb = mlbstatsapi.Mlb()
+    today = datetime.now(timezone.utc) - timedelta(days=1)
+    year = today.strftime("%Y")
+    month = today.strftime("%m")
+    day = today.strftime("%d")
     cubs_schedule = mlb.get_scheduled_games_by_date(
-        start_date="2025-03-25", end_date="2025-03-25", teamId=112, sportId=1
+        start_date=f"{year}-{month}-{day}",
+        end_date=f"{year}-{month}-{day}",
+        teamId=112,
+        sportId=1,
     )
 
     print(cubs_schedule)
     if len(cubs_schedule) == 0:
-        print("No games today")
+        print("No Cubs game today")
         return
     for item in cubs_schedule:
         gamepk = mlb.get_game_box_score(item.gamepk)
@@ -46,8 +54,9 @@ def main():
                 if home_team_info == "Chicago Cubs" and home_team_winner == True:
                     print("Cubs won today at home!")
                     # send_text("baseball", "Cubs")
-                if home_team_info == "Chicago Cubs" and home_team_winner == False:
-                    print("Cubs lost today at home :( ")
+                    break
+                # if home_team_info == "Chicago Cubs" and home_team_winner == False:
+                #     print("Cubs lost today at home :( ")
 
 
 # Lambda Handlers

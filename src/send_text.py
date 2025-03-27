@@ -11,7 +11,7 @@ outgoing_number = os.environ["SENDER_NUMBER"]
 client = Client(account_sid, auth_token)
 
 ddb_resource = boto3.resource("dynamodb")
-table_name = "BlackhawksCfa"
+table_name = "ChickfilaData"
 phone_numbers_table = ddb_resource.Table(table_name)
 
 
@@ -46,7 +46,7 @@ def message_to_send(sport, player_scoring):
     text_factor_in_sunday = (
         "Today is Sunday - free sandwich is available for Monday."
         if is_sunday()
-        else "Free sandwich has landed."
+        else "Free sandwich has landed for tomorrow."
     )
     if sport == "hockey":
         return f"{player_scoring} scored in the first period at home. {text_factor_in_sunday}"
