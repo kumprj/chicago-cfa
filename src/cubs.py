@@ -53,7 +53,7 @@ def main():
                 home_team_winner = item["games"][0]["teams"]["home"]["isWinner"]
                 if home_team_info == "Chicago Cubs" and home_team_winner == True:
                     print("Cubs won today at home!")
-                    # send_text("baseball", "Cubs")
+                    # send_text("Cubs", "Cubs")
                     break
                 # if home_team_info == "Chicago Cubs" and home_team_winner == False:
                 #     print("Cubs lost today at home :( ")

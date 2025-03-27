@@ -16,17 +16,23 @@ phone_numbers_table = ddb_resource.Table(table_name)
 
 
 # If there is a goal at home, this funtction executes and we alert the user.
-def send_text(sport, player_scoring):
+def send_text(team, player_scoring):
     sender_number = outgoing_number
     nameList = []
-    message = message_to_send(sport, player_scoring)
+    message = message_to_send(team, player_scoring)
 
     nameList = getNameAndNumber()
 
-    for name, number in nameList:
+    for name, number, cubs, hawks in nameList:
         message_sent = f"Great news, {name}! {message}"
         safeNumber = polish_number(number)
         print(f"Sending to {name} at {safeNumber}")
+
+        # Test these and phone number to ensure they are coming in as Strings.
+        if team == "Blackhawks" and hawks == "true":
+            continue
+        if team == "Cubs" and cubs == "false":
+            continue
         try:
             client.messages.create(
                 body=message_sent,
@@ -42,15 +48,15 @@ def send_text(sport, player_scoring):
                 delete_data(name, number)
 
 
-def message_to_send(sport, player_scoring):
+def message_to_send(team, player_scoring):
     text_factor_in_sunday = (
         "Today is Sunday - free sandwich is available for Monday."
         if is_sunday()
         else "Free sandwich has landed for tomorrow."
     )
-    if sport == "hockey":
+    if team == "Blackhawks":
         return f"{player_scoring} scored in the first period at home. {text_factor_in_sunday}"
-    elif sport == "baseball":
+    elif team == "Cubs":
         return f"Cubs won at home! {text_factor_in_sunday}"
     else:
         return ""
