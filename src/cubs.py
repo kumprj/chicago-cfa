@@ -15,6 +15,7 @@
 
 import mlbstatsapi
 import os
+from datetime import datetime, timedelta, timezone
 import requests
 
 from send_text import send_text
@@ -23,8 +24,15 @@ from send_text import send_text
 # For Local dev
 def main():
     mlb = mlbstatsapi.Mlb()
+    today = datetime.now(timezone.utc) - timedelta(days=1)
+    year = today.strftime("%Y")
+    month = today.strftime("%m")
+    day = today.strftime("%d")
     cubs_schedule = mlb.get_scheduled_games_by_date(
-        start_date="2025-03-25", end_date="2025-03-25", teamId=112, sportId=1
+        start_date=f"{year}-{month}-{day}",
+        end_date=f"{year}-{month}-{day}",
+        teamId=112,
+        sportId=1,
     )
 
     print(cubs_schedule)
