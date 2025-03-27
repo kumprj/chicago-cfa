@@ -1,5 +1,5 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { DynamoDBDocumentClient, PutCommand, DeleteCommand } from "@aws-sdk/lib-dynamodb";
+import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
 import twilio from "twilio";
 
 // Set the environment variables. See http://twil.io/secure
@@ -9,7 +9,7 @@ const client = twilio(accountSid, authToken);
 
 // DynamoDB Configuration Settings.
 const REGION = "us-east-1"; // Replace with your region
-const TABLE_NAME = "BlackhawksCfa"; // Replace with your table name
+const TABLE_NAME = "ChickfilaData"; // Replace with your table name
 
 // Create a DynamoDB Document Client here.
 const dynamoDbClient = new DynamoDBClient({ region: REGION });
@@ -40,9 +40,6 @@ export const handler = async (event) => {
     }
 
     const { name, phone, action, hawks, cubs } = body;
-    console.log("action is " + action);
-    console.log("hawks is " + hawks);
-    console.log("cubs is " + cubs);
     // Validate input fields - name and phone are Pk/Sk.
     if (!name || !phone) {
       return {
@@ -54,7 +51,7 @@ export const handler = async (event) => {
     if (action === "Add My Number") {
       const params = {
         TableName: TABLE_NAME,
-        Item: { Phone: phone, SK: name, Blackhawks: hawks, Cubs: cubs },
+        Item: { Phone: phone, Name: name, Blackhawks: hawks, Cubs: cubs },
       };
       await dynamoDb.send(new PutCommand(params));
       await createMessage(phone, name);

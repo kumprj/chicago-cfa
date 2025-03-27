@@ -11,7 +11,7 @@ outgoing_number = os.environ["SENDER_NUMBER"]
 client = Client(account_sid, auth_token)
 
 ddb_resource = boto3.resource("dynamodb")
-table_name = "BlackhawksCfa"
+table_name = "ChickfilaData"
 phone_numbers_table = ddb_resource.Table(table_name)
 
 
