@@ -1,1 +1,2 @@
 twilio==9.3.7
+python-mlb-statsapi==0.5.25

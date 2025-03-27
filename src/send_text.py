@@ -16,41 +16,59 @@ phone_numbers_table = ddb_resource.Table(table_name)
 
 
 # If there is a goal at home, this funtction executes and we alert the user.
-def send_text(sport, player_scoring):
+def send_text(team, player_scoring):
     sender_number = outgoing_number
     nameList = []
-    message = message_to_send(sport, player_scoring)
+    message = message_to_send(team, player_scoring)
 
     nameList = getNameAndNumber()
 
-    for name, number in nameList:
+    for name, number, cubs, hawks in nameList:
         message_sent = f"Great news, {name}! {message}"
         safeNumber = polish_number(number)
         print(f"Sending to {name} at {safeNumber}")
-        try:
-            client.messages.create(
-                body=message_sent,
-                from_=sender_number,
-                to="+1" + number,
-            )
-        except TwilioException as e:
-            print(e.msg)
-            print(e.code)
-            # Twilio Unsubscribed error code is 21610.
-            if e.code == 21610:
-                print(f"Deleting {name} due to unsubscribing.")
-                delete_data(name, number)
+
+        if verify_user(cubs, hawks, team) == False:
+            continue
+        else:
+            twilio_msg_fire(message_sent, sender_number, safeNumber)
 
 
-def message_to_send(sport, player_scoring):
+# Test these and phone number to ensure they are coming in as Strings.
+def verify_user(cubs, hawks, team):
+    if team == "Blackhawks" and hawks == "true":
+        return True
+    if team == "Cubs" and cubs == "true":
+        return True
+    return False
+
+
+# Test phone number to ensure they are coming in as Strings.
+def twilio_msg_fire(message_sent, sender_number, safeNumber):
+    try:
+        client.messages.create(
+            body=message_sent,
+            from_=sender_number,
+            to="+1" + safeNumber,
+        )
+    except TwilioException as e:
+        print(e.msg)
+        print(e.code)
+        # Twilio Unsubscribed error code is 21610.
+        if e.code == 21610:
+            print(f"Deleting {safeNumber} due to unsubscribing.")
+            delete_data(safeNumber, safeNumber)
+
+
+def message_to_send(team, player_scoring):
     text_factor_in_sunday = (
         "Today is Sunday - free sandwich is available for Monday."
         if is_sunday()
         else "Free sandwich has landed for tomorrow."
     )
-    if sport == "hockey":
+    if team == "Blackhawks":
         return f"{player_scoring} scored in the first period at home. {text_factor_in_sunday}"
-    elif sport == "baseball":
+    elif team == "Cubs":
         return f"Cubs won at home! {text_factor_in_sunday}"
     else:
         return ""
