@@ -9,6 +9,11 @@ module "cubs_lambda_function" {
   create_package         = false
   maximum_retry_attempts = 0
   local_existing_package = "../package.zip" # Dummy zip to be updated via a Github Action
+  environment_variables = {
+    TWILIO_ACCOUNT_SID = var.twilio_account_id
+    TWILIO_AUTH_TOKEN  = var.twilio_auth_token
+    SENDER_NUMBER      = var.sender_number
+  }
   # Have to re-add Env vars and IAM role
   # with:
   # aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
