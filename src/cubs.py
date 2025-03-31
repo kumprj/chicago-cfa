@@ -55,8 +55,8 @@ def main():
                     print("Cubs won today at home!")
                     # send_text("Cubs", "Cubs")
                     break
-                # if home_team_info == "Chicago Cubs" and home_team_winner == False:
-                #     print("Cubs lost today at home :( ")
+                if home_team_info == "Chicago Cubs" and home_team_winner == False:
+                    print("Cubs lost today at home :( ")
 
 
 # Lambda Handlers
