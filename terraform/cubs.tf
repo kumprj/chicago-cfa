@@ -10,4 +10,7 @@ module "cubs_lambda_function" {
   maximum_retry_attempts = 0
   local_existing_package = "../package.zip" # Dummy zip to be updated via a Github Action
   # Have to re-add Env vars and IAM role
+  # with:
+  # aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  # aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 }
