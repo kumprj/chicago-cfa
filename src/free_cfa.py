@@ -21,7 +21,7 @@ def get_game_id():
     if response.status_code == 200:
         data = response.json()
         for item in data["games"]:
-            # print(item) # For testing purposes as needed.
+            # print(item) # For testing puposes as needed.
             if item["venue"]["default"] == "United Center":
                 print(item["id"])
                 game_id = item["id"]
