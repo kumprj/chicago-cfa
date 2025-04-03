@@ -28,3 +28,4 @@ twilio==9.3.7
 urllib3==2.2.3
 yarl==1.18.0
 zope.interface==7.1.1
+python-mlb-statsapi==0.5.25
