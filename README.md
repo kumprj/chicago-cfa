@@ -1,7 +1,8 @@
 # blackhawks-cfa
 Text alerts if the Blackhawks or Cubs got us free chick fil a by scoring in the first period of a home game or winning a home baseball game. App hosted on AWS with API Gateway, Lambda, and DynamoDB.
 
-
+# Terraform Scripts
+https://github.com/kumprj/terraform-cfa
 
 # Frontend
 The frontend folder contains a single page HTML with some small javascript code to send the data entered to API Gateway. It is hosted on S3 as a static webpage.

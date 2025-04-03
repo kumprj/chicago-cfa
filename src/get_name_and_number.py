@@ -4,7 +4,7 @@ import os
 # Crawl the DynamoDB table for the users to message.
 def getNameAndNumber():
     dynamodb = boto3.resource("dynamodb")
-    table = dynamodb.Table("BlackhawksCfa")
+    table = dynamodb.Table("ChickfilaData")
     response = table.scan()
     nameList = []
     for i in response["Items"]:
