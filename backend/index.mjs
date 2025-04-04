@@ -5,6 +5,8 @@ import twilio from "twilio";
 // Set the environment variables. See http://twil.io/secure
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
+const senderNumber = process.env.SENDER_NUMBER;
+const myNumber = process.env.MY_NUMBER;
 const client = twilio(accountSid, authToken);
 
 // DynamoDB Configuration Settings.
@@ -89,9 +91,19 @@ async function createMessage(phone, personsName) {
   try {
     console.log("Attempting to send message to phone:", phone);
     const message = await client.messages.create({
-      body: "You're in for Blackhawks Chick-fil-a breakfast alerts, " + personsName + "! Change your mind? Reply STOP to unsubscribe. Msg&Data Rates May Apply",
-      from: "+15138668921",
+      body: "You're in for Chicago Chick-fil-a alerts, " + personsName + "! Change your mind? Reply STOP to unsubscribe. Msg&Data Rates May Apply",
+      from: senderNumber,
       to: "+1" + phone,
+    });
+    console.log('Message sent successfully:', message.status);
+  } catch (error) {
+    console.error('Failed to send message:', error);
+  }
+  try {
+    const message = await client.messages.create({
+      body: "New subscriber! " + personsName + " subscribed to alerts.",
+      from: senderNumber,
+      to: myNumber,
     });
     console.log('Message sent successfully:', message.status);
   } catch (error) {
