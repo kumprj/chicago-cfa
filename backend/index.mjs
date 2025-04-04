@@ -105,7 +105,7 @@ async function createMessage(phone, personsName) {
       from: senderNumber,
       to: myNumber,
     });
-    console.log('Message sent successfully:', message.status);
+    console.log('New Subscriber message sent successfully:', message.status);
   } catch (error) {
     console.error('Failed to send message:', error);
   }
