@@ -65,7 +65,7 @@ class TestSendText(unittest.TestCase):
         # assert mock_create.called is True
         # Confirm if this works on Sundays.
         mock_create.assert_called_with(
-            body="Great news, John Doe! Patrick Kane scored in the first period at home. Free sandwich has landed for tomorrow.",
+            body="Great news, John Doe! Patrick Kane scored in the first period at home. Free sandwich has landed for tomorrow. Msg STOP to unsubscribe.",
             from_=os.environ["SENDER_NUMBER"],
             to="+1234567890",
         )
