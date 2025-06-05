@@ -24,7 +24,7 @@ def send_text(team, player_scoring):
     nameList = getNameAndNumber()
 
     for name, number, cubs, hawks in nameList:
-        message_sent = f"Great news, {name}! {message}"
+        message_sent = f"Great news, {name}! {message} Msg STOP to unsubscribe."
         safeNumber = polish_number(number)
         print(f"Sending to {name} at {safeNumber}")
 
