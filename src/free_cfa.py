@@ -56,7 +56,8 @@ def game_summary_func(game_id):
         print("Error: ", response.status_code)
 
     if goal_result == True:
-        send_text("Blackhawks", player_scoring)
+        print("Temporarily not sending text for Blackhawks goal in first period")
+        # send_text("Blackhawks", player_scoring)
 
 
 # Lambda Handlers
