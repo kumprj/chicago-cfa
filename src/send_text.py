@@ -15,95 +15,94 @@ table_name = "ChickfilaData"
 phone_numbers_table = ddb_resource.Table(table_name)
 
 
-# If there is a goal at home, this funtction executes and we alert the user.
-def send_text(team, player_scoring):
-    sender_number = outgoing_number
-    nameList = []
-    message = message_to_send(team, player_scoring)
+# If there is a goal at home, this function executes and we alert the user.
+def send_text(team, message):
+  sender_number = outgoing_number
+  nameList = []
+  message = message_to_send(team, message)
 
-    nameList = getNameAndNumber()
+  nameList = getNameAndNumber()
 
-    for name, number, cubs, hawks in nameList:
-        message_sent = f"Great news, {name}! {message} Msg STOP to unsubscribe."
-        safeNumber = polish_number(number)
-        print(f"Sending to {name} at {safeNumber}")
+  for name, number, cubs, hawks in nameList:
+    message_sent = f"Great news, {name}! {message} Msg STOP to unsubscribe."
+    safeNumber = polish_number(number)
+    print(f"Sending to {name} at {safeNumber}")
 
-        if verify_user(cubs, hawks, team) == False:
-            continue
-        else:
-            twilio_msg_fire(message_sent, sender_number, safeNumber)
+    if verify_user(cubs, hawks, team) == False:
+      continue
+    else:
+      twilio_msg_fire(message_sent, sender_number, safeNumber)
 
 
 # Test these and phone number to ensure they are coming in as Strings.
 def verify_user(cubs, hawks, team):
-    if team == "Blackhawks" and hawks == "true":
-        return True
-    if team == "Cubs" and cubs == "true":
-        return True
-    return False
+  if team == "Blackhawks" and hawks == "true":
+    return True
+  if team == "Cubs" and cubs == "true":
+    return True
+  return False
 
 
 # Test phone number to ensure they are coming in as Strings.
 def twilio_msg_fire(message_sent, sender_number, safeNumber):
-    try:
-        client.messages.create(
-            body=message_sent,
-            from_=sender_number,
-            to="+1" + safeNumber,
-        )
-    except TwilioException as e:
-        print(e.msg)
-        print(e.code)
-        # Twilio Unsubscribed error code is 21610.
-        if e.code == 21610:
-            print(f"Deleting {safeNumber} due to unsubscribing.")
-            delete_data(safeNumber, safeNumber)
-
-
-def message_to_send(team, player_scoring):
-    text_factor_in_sunday = (
-        "Today is Sunday - free sandwich is available for Monday."
-        if is_sunday()
-        else "Free sandwich has landed for tomorrow."
+  try:
+    client.messages.create(
+      body=message_sent,
+      from_=sender_number,
+      to="+1" + safeNumber,
     )
-    if team == "Blackhawks":
-        return f"{player_scoring} scored in the first period at home. {text_factor_in_sunday}"
-    elif team == "Cubs":
-        return f"Cubs won at home! {text_factor_in_sunday}"
-    else:
-        return ""
+  except TwilioException as e:
+    print(e.msg)
+    print(e.code)
+    # Twilio Unsubscribed error code is 21610.
+    if e.code == 21610:
+      print(f"Deleting {safeNumber} due to unsubscribing.")
+      delete_data(safeNumber, safeNumber)
+
+
+def message_to_send(team, message):
+  text_factor_in_sunday = (
+    "Today is Sunday - your Chick-fil-a freebie available in app for Monday."
+    if is_sunday()
+    else "Chick-fil-a 8-count nuggets has landed in your app. Expires tomorrow."
+  )
+  if team == "Blackhawks":
+    return f"{message} scored in the first period at home. {text_factor_in_sunday}"
+  elif team == "Cubs":
+    return f"{message} {text_factor_in_sunday}"
+  else:
+    return ""
 
 
 def is_sunday():
-    today = datetime.date.today()
-    if today.weekday() == 6:  #  6 represents Sunday
-        return True
-    return False
+  today = datetime.date.today()
+  if today.weekday() == 6:  # 6 represents Sunday
+    return True
+  return False
 
 
 def delete_data(name, number):
-    dynamo_response = phone_numbers_table.delete_item(
-        Key={"Name": name, "SK": "GRP1#" + number}
-    )
-    print(dynamo_response)
+  dynamo_response = phone_numbers_table.delete_item(
+    Key={"Name": name, "SK": "GRP1#" + number}
+  )
+  print(dynamo_response)
 
 
 # Scrub the number of any +1 and hyphens (unlikely, but just in case).
 def polish_number(number):
-    new_number = ""
+  new_number = ""
 
-    if "+1" and "-" in number:
-        new_number2 = number.replace("+1", "")
-        new_number = new_number2.replace("-", "")
-    elif "+1" in number:
-        new_number = number.replace("+1", "")
-    elif "-" in number:
-        new_number = number.replace("-", "")
-    else:
-        new_number = number
+  if "+1" and "-" in number:
+    new_number2 = number.replace("+1", "")
+    new_number = new_number2.replace("-", "")
+  elif "+1" in number:
+    new_number = number.replace("+1", "")
+  elif "-" in number:
+    new_number = number.replace("-", "")
+  else:
+    new_number = number
 
-    return new_number
-
+  return new_number
 
 # For Local dev
 # def main():

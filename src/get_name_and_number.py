@@ -1,23 +1,31 @@
 import boto3
 import os
 
+
 # Crawl the DynamoDB table for the users to message.
+# def getNameAndNumber():
+#   # For testing, return just Robbie's phone number
+#   nameList = [("Robbie", "5134906966", "true", "true")]
+#   return nameList
+
+
+# Original function commented out for testing
 def getNameAndNumber():
-    dynamodb = boto3.resource("dynamodb")
-    table = dynamodb.Table("ChickfilaData")
-    response = table.scan()
-    nameList = []
-    for i in response["Items"]:
-        nameList.append((i["Name"], i["Phone"], i["Cubs"], i["Blackhawks"]))
-    # print(nameList)
-    return nameList
+  dynamodb = boto3.resource("dynamodb")
+  table = dynamodb.Table("ChickfilaData")
+  response = table.scan()
+  nameList = []
+  for i in response["Items"]:
+    nameList.append((i["Name"], i["Phone"], i["Cubs"], i["Blackhawks"]))
+  # print(nameList)
+  return nameList
 
 
 # For Local dev
 def main():
-    getNameAndNumber()
+  getNameAndNumber()
 
 
 # For Local dev
 if __name__ == "__main__":
-    main()
+  main()

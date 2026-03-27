@@ -58,6 +58,7 @@ def game_summary_func(game_id):
     if goal_result == True:
         print("Temporarily not sending text for Blackhawks goal in first period")
         # send_text("Blackhawks", player_scoring)
+        # Do not re-enable until Cubs. 
 
 
 # Lambda Handlers
