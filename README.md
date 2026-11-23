@@ -5,7 +5,7 @@ Text alerts if the Blackhawks or Cubs got us free chick fil a by scoring in the 
 https://github.com/kumprj/terraform-cfa
 
 # Frontend
-The frontend folder contains a single page HTML with some small javascript code to send the data entered to API Gateway. It is hosted on S3 as a static webpage.
+The frontend folder contains a single page HTML with some small javascript code to send the data entered to API Gateway. It is hosted on GitHub Pages (https://kumprj.github.io/chicago-cfa/), deployed by `.github/workflows/pages.yml`.
 
 # Backend
 The backend is triggered when a user submits to add their data. It is a NodeJS Lambda that handles the API Gateway request. It receives a JSON Object ('body') which is then parsed to determine to load the user into the database.
@@ -18,5 +18,5 @@ Python src code. This handles the NHL API requests and text message sends. `get_
 * Python Lambda which runs the check against NHL API and checks if the Hawks are at home. This is managed with Terraform.
 * Python Lambda which runs the check against MLB API and checks if the Cubs win at home. This is managed with Terraform.
 * Backend API Gateway lambda which loads the user's data to DynamoDB. The lambda is managed by GitHub actions but the API Gateway was manually configured.
-* Front end hosted in S3 - this is a simple aws s3 cp of the file.
+* Front end hosted on GitHub Pages - `pages.yml` publishes `frontend/index.html`.
   
